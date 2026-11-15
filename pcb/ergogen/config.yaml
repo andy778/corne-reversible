@@ -1,0 +1,443 @@
+# Reversible Corne-layout split keyboard, ONE half (the right half is the same board flipped).
+# Ergogen v4 (tested with 4.2.1). See README.md.
+meta:
+  engine: 4.2.1
+  author: andy778
+  version: 0.1
+
+units:
+  # MX pitch on both axes.
+  kp: 19.05
+  ks: 19.05
+  edge: 2.0          # board edge margin around the key tiles
+  wall: 2.0          # tray wall thickness beyond the PCB outline
+  # Controller origin relative to matrix_inner_top (centre of the 24-hole footprint)
+  ctrl_x: 20.5
+  ctrl_y: -5.5
+
+# Column stagger and thumb cluster: QMK crkbd info.json, layout LAYOUT_split_3x6_3
+# (qmk/qmk_firmware keyboards/crkbd/info.json). Absolute key y per column, in u,
+# measured down from the top: outer 0.3, pinky 0.3, ring 0.1, middle 0.0, index 0.1, inner 0.2.
+# Ergogen stagger is relative to the previous column and y up, so:
+# pinky 0, ring +0.2u, middle +0.1u, index -0.1u, inner -0.1u.
+points:
+  key:
+    spread: ks
+    padding: kp
+  zones:
+    matrix:
+      anchor:
+        shift: [0, 0]
+      columns:
+        outer:
+          key:
+            column_net: COL_D21
+        pinky:
+          key:
+            column_net: COL_D20
+            stagger: 0
+        ring:
+          key:
+            column_net: COL_D19
+            stagger: 0.2 kp
+        middle:
+          key:
+            column_net: COL_D18
+            stagger: 0.1 kp
+        index:
+          key:
+            column_net: COL_D15
+            stagger: -0.1 kp
+        inner:
+          key:
+            column_net: COL_D14
+            stagger: -0.1 kp
+      rows:
+        bottom:
+          row_net: ROW2
+        home:
+          row_net: ROW1
+        top:
+          row_net: ROW0
+    thumbfan:
+      anchor:
+        ref: matrix_index_bottom
+        shift: [0, -1.1 kp]
+      columns:
+        near:
+          key:
+            column_net: COL_D18
+        mid:
+          key:
+            column_net: COL_D15
+        far:
+          key:
+            column_net: COL_D14
+            spread: ks + 2
+            stagger: 0.25 kp
+            origin: [0, 0]
+            rotate: -15
+      rows:
+        thumb:
+          row_net: ROW3
+
+# ---------------------------------------------------------------------------
+# Anchors (YAML anchors, reused below)
+# ---------------------------------------------------------------------------
+anchors:
+  ctrl: &ctrl
+    ref: matrix_inner_top
+    shift: [ctrl_x, ctrl_y]
+  display: &display
+    ref: matrix_inner_top
+    shift: [ctrl_x, ctrl_y - 22.65]
+  # Mounting holes (M2, 2.2 mm). H1-H4 sit on key-tile corners, all in columns 1..5 and
+  # the thumb cluster, so they survive removal of the outer-column tab. H5 is below the
+  # nice!view header.
+  h1: &h1 {ref: matrix_pinky_top, shift: [0.5 kp, -7.0]}
+  h2: &h2 {ref: matrix_middle_top, shift: [0.5 kp, -0.5 kp]}
+  h3: &h3 {ref: matrix_pinky_home, shift: [0.5 kp, -7.0]}
+  h4: &h4 {ref: thumbfan_near_thumb, shift: [0.5 kp, -5.5]}
+  h5: &h5 {ref: matrix_inner_top, shift: [ctrl_x, ctrl_y - 22.65 - 8]}
+  # Right edge of the board is ctrl + 19. The slide switch and JST have the actuator / plug
+  # towards +y in their own frame, so they are rotated 90 degrees to face the right edge.
+  # The reset button (TS-1187A, top actuated, face A) is rotated too only to fit the edge strip.
+  pwr: &pwr {ref: matrix_inner_top, shift: [ctrl_x + 15.8, ctrl_y + 8], rotate: 90}
+  rst: &rst {ref: matrix_inner_top, shift: [ctrl_x + 12.6, ctrl_y - 1], rotate: 90}
+  bat: &bat {ref: matrix_inner_top, shift: [ctrl_x + 14.0, ctrl_y - 10], rotate: 90}
+
+outlines:
+  _tiles:
+    - what: rectangle
+      where: /^(matrix|thumbfan)_/
+      size: [ks + 2 * edge, ks + 2 * edge]
+  _right_region:
+    - what: rectangle
+      where: {ref: matrix_inner_top, shift: [23.75, -18.25]}
+      size: [31.5, 59.5]
+  _union:
+    - what: outline
+      name: _tiles
+    - operation: add
+      what: outline
+      name: _right_region
+  _solid_42:
+    - what: outline
+      name: _union
+      fillet: 1
+  # Break line of the 36-key tab: x = outer + 9.525 (tile boundary between the outer and pinky
+  # columns). Perforation of 0.6 mm holes, 1.2 mm pitch, skipped where the Choc pad-1
+  # copper tips reach the line (3 bands of 4 mm per column). No slot, so only the 3 row
+  # nets and COL_D21 cross, between the holes.
+  _bites:
+    - what: circle
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -29.075]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -27.875]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -26.675]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -25.475]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -24.275]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -23.075]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -21.875]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -20.675]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -19.475]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -18.275]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -12.275]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -11.075]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -9.875]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -8.675]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -7.475]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -6.275]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -5.075]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -3.875]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -2.675]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -1.475]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, -0.275]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 0.925]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 6.925]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 8.125]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 9.325]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 10.525]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 11.725]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 12.925]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 14.125]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 15.325]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 16.525]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 17.725]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 18.925]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 20.125]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 24.925]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 26.125]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 27.325]}
+    - what: circle
+      operation: add
+      radius: 0.3
+      where: {ref: matrix_outer_home, shift: [9.525, 28.525]}
+  # PCB outline, 42-key: perforated break line
+  board_42:
+    - what: outline
+      name: _solid_42
+    - operation: subtract
+      what: outline
+      name: _bites
+  # Outer column and tab removed (ideal break line, bridge nubs ignored)
+  _tab_area:
+    - what: rectangle
+      where: {ref: matrix_outer_home, shift: [-6, 0]}
+      size: [31.05, 200]
+  _solid_36:
+    - what: outline
+      name: _solid_42
+    - operation: subtract
+      what: outline
+      name: _tab_area
+  board_36:
+    - what: outline
+      name: _solid_36
+  _cutouts:
+    - what: rectangle
+      where: /^(matrix|thumbfan)_/
+      size: 14
+  _mounts:
+    - what: circle
+      radius: 1.1
+      where: *h1
+    - what: circle
+      operation: add
+      radius: 1.1
+      where: *h2
+    - what: circle
+      operation: add
+      radius: 1.1
+      where: *h3
+    - what: circle
+      operation: add
+      radius: 1.1
+      where: *h4
+    - what: circle
+      operation: add
+      radius: 1.1
+      where: *h5
+  # Switch plate: MX 14.0 mm cutouts, M2 holes
+  plate_42:
+    - what: outline
+      name: _solid_42
+    - operation: subtract
+      what: outline
+      name: _cutouts
+    - operation: subtract
+      what: outline
+      name: _mounts
+  plate_36:
+    - what: outline
+      name: _solid_36
+    - operation: subtract
+      what: outline
+      name: _cutouts
+    - operation: subtract
+      what: outline
+      name: _mounts
+  # Press hole through the tray under the reset button (LEFT half only: the button is on
+  # face A, which faces down on the left half). 3.0 mm; WP6 may enlarge it.
+  _tray_reset_hole:
+    - what: circle
+      radius: 1.5
+      where: *rst
+  # Tray: PCB outline + wall
+  _tray_42_solid:
+    - what: outline
+      name: _solid_42
+      expand: wall
+  _tray_36_solid:
+    - what: outline
+      name: _solid_36
+      expand: wall
+  # Right-half trays (button faces up, no press hole) ...
+  tray_42:
+    - what: outline
+      name: _tray_42_solid
+  tray_36:
+    - what: outline
+      name: _tray_36_solid
+  # ... and left-half trays with the reset press hole (button faces down on the left half).
+  tray_42_left:
+    - what: outline
+      name: _tray_42_solid
+    - operation: subtract
+      what: outline
+      name: _tray_reset_hole
+  tray_36_left:
+    - what: outline
+      name: _tray_36_solid
+    - operation: subtract
+      what: outline
+      name: _tray_reset_hole
+
+pcbs:
+  corne_reversible:
+    outlines:
+      main:
+        outline: board_42
+    footprints:
+      switches:
+        what: corne/switch_mx_choc_reversible
+        where: /^(matrix|thumbfan)_/
+        params:
+          from: "{{column_net}}"
+          to: "SW_{{colrow}}"
+      diodes:
+        what: local/diode_sod123_back
+        where: /^(matrix|thumbfan)_/
+        params:
+          from: "SW_{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -0.5 kp]
+      controller:
+        what: corne/mcu_promicro_reversible_jumpers
+        where: *ctrl
+        params:
+          D1: DISP_CS
+          D2: DISP_MOSI
+          D3: DISP_SCK
+          D4: ROW0
+          D5: ROW1
+          D6: ROW2
+          D7: ROW3
+          D14: COL_D14
+          D15: COL_D15
+          D18: COL_D18
+          D19: COL_D19
+          D20: COL_D20
+          D21: COL_D21
+          BAT_P: MCU_BATP_UNUSED
+          BAT_N: MCU_BATN_UNUSED
+      display:
+        what: corne/display_niceview_reversible_jumpers
+        where: *display
+        params:
+          MOSI: DISP_MOSI
+          SCK: DISP_SCK
+          CS: DISP_CS
+      power_switch:
+        what: corne/power_switch_msk12c02_reversible
+        where: *pwr
+      reset_switch:
+        what: corne/reset_switch_ts1187a_face_a
+        where: *rst
+      battery:
+        what: corne/battery_jst_ph_tht_reversible
+        where: *bat
+      mount_h1: {what: local/mounting_hole_m2, where: *h1}
+      mount_h2: {what: local/mounting_hole_m2, where: *h2}
+      mount_h3: {what: local/mounting_hole_m2, where: *h3}
+      mount_h4: {what: local/mounting_hole_m2, where: *h4}
+      mount_h5: {what: local/mounting_hole_m2, where: *h5}
