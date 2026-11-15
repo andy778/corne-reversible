@@ -104,7 +104,7 @@ Plain mirroring in the slicer is **not** enough, because the halves differ in th
 
 `python3 case/tools/check.py` renders sections of the real model (plate mid-plane, tray at boss height and in the floor) to DXF and compares them with `points.yaml`, the `config.yaml` anchors and the Ergogen DXFs; tolerance 0.05 mm. Output at the time of commit (the last two lines need a fresh Ergogen `output/`, otherwise they are skipped):
 
-```
+```text
 PASS  Ergogen plate_42.dxf cutouts vs points.yaml: 21 expected, 21 found, max deviation 0.0000 mm
 PASS  Ergogen plate_42.dxf holes vs config anchors: 5 expected, 5 found, max deviation 0.0000 mm
 PASS  Ergogen plate_36.dxf cutouts vs points.yaml: 18 expected, 18 found, max deviation 0.0000 mm
