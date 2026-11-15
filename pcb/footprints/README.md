@@ -91,8 +91,15 @@ These parts carry their own pads on each face, mirrored, with the same pad numbe
 | Footprint | Part (WP3, LCSC, checked 2026-11-15) | Pads / nets | Notes |
 | --- | --- | --- | --- |
 | `SW_SPDT_MSK12C02_Reversible` | Shou Han MSK12C02, C431540 | `1` = BAT_P (from JST), `2` = common, goes to RAW, `3` = NC; 4 unnamed shell tabs; 2 NPTH | Actuator towards +y (board edge). Signal pads lengthened 0.4 mm away from the body for hand soldering. Because the B copy is mirrored, ON is the opposite slide direction on the two halves. |
-| `SW_Reset_TS-1186F_Side_Reversible` | XKB TS-1186F-B-A, C908470. **PROVISIONAL**: WP3 has not yet chosen between this and TS-1187A | `1` = RST (pins 1+2), `2` = GND (pins 3+4); two 0.8 mm peg holes | Land pattern read from the XKB TS-1186F-X-X drawing; pads lengthened 0.4 mm outward. Actuator assumed towards +y. TS-1187A (5.1 x 5.1 mm, top-actuated) would need a new footprint: **TODO if WP3 picks it.** |
+| `SW_Reset_TS-1186F_Side_Reversible` | XKB TS-1186F-B-A, C908470. **Fallback only**: the owner chose the factory-fitted TS-1187A (below) | `1` = RST (pins 1+2), `2` = GND (pins 3+4); two 0.8 mm peg holes | Land pattern read from the XKB TS-1186F-X-X drawing; pads lengthened 0.4 mm outward. Actuator assumed towards +y. |
 | `JST_PH_S2B-PH-K_Reversible` | JST S2B-PH-K-S, C173752, THT side entry | `1` = BAT_N (GND), `2` = BAT_P | THT holes are shared by both faces, so a connector fitted on the other face would swap polarity. This footprint therefore has **two hole pairs**: y = 0 for a connector on KiCad F, y = -3.0 for one on KiCad B, wired as mirror images. No jumpers, so there is no double-bridge battery short. Silk on each face marks `USE THIS PAIR`. Courtyard includes the plug and lead. |
+
+### `SW_Reset_TS-1187A_FaceA` / `ergogen/reset_switch_ts1187a_face_a.js` (JLCPCB-assembled)
+
+- XKB TS-1187A-B-A-B, C318884, **JLCPCB Basic** (no feeder fee): the owner chose to have JLCPCB fit it with the diodes, on face A only.
+- Pads, paste and courtyard are KiCad's stock `SW_Push_1P1T_XKB_TS-1187A` (1.0 x 0.75 mm at x +-3.0, y +-1.875). `1` = RST, `2` = GND. Included in BOM and position files, unlike the hand-soldered footprints.
+- The KiCad library copy is front-side; flip it onto face A in KiCad. The Ergogen module is emitted already on face A (KiCad B with the default `LEFT_FACE`).
+- It is top-actuated, 1.5 mm tall. Left half: it faces down, so the tray needs a press hole under it. Right half: it faces up, so place it outside the switch plate (next to the controller), not under a key.
 
 ## Corne pin map (ZMK stock `corne` shield)
 

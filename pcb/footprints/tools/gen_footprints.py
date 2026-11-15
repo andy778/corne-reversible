@@ -63,6 +63,8 @@ class Footprint:
         self.name, self.descr, self.tags = name, descr, tags
         self.ergo_name, self.params = ergo_name, params  # params: {name: default}
         self.attr = attr
+        self.layer = "F"          # KiCad side the footprint itself sits on
+        self.assembled = False    # True: JLCPCB places it (in BOM and position files)
         self.pads, self.grs = [], []
         self.ref = ("REF**", (0, 0), "F.SilkS")
         self.extra_ergo_doc = ""
@@ -162,13 +164,19 @@ def _gr_sexpr(fp, i, g, ergo):
     raise ValueError(g.kind)
 
 
+def attr_flags(fp):
+    if fp.assembled:
+        return fp.attr
+    return f"{fp.attr} exclude_from_pos_files exclude_from_bom allow_soldermask_bridges"
+
+
 def to_kicad_mod(fp):
     ref, rat, rlayer = fp.ref
     out = [f'(footprint "{fp.name}"',
            "\t(version 20240108)",
            '\t(generator "corne_reversible_gen")',
            '\t(generator_version "1.0")',
-           '\t(layer "F.Cu")',
+           f'\t(layer "{fp.layer}.Cu")',
            f'\t(descr "{fp.descr}")',
            f'\t(tags "{fp.tags}")',
            f'\t(property "Reference" "{ref}" (at {fmt(rat[0])} {fmt(rat[1])} 0) (layer "{rlayer}") '
@@ -176,7 +184,7 @@ def to_kicad_mod(fp):
            f'{" (justify mirror)" if rlayer.startswith("B.") else ""}))',
            f'\t(property "Value" "{fp.name}" (at 0 0 0) (layer "F.Fab") (uuid "{uid(fp.name, "val")}") '
            "(effects (font (size 1 1) (thickness 0.15))))",
-           f"\t(attr {fp.attr} exclude_from_pos_files exclude_from_bom allow_soldermask_bridges)"]
+           f"\t(attr {attr_flags(fp)})"]
     for i, g in enumerate(fp.grs):
         out.append("\t" + _gr_sexpr(fp, i, g, False))
     for i, p in enumerate(fp.pads):
@@ -193,11 +201,11 @@ def to_ergogen(fp):
     ref, rat, rlayer = fp.ref
     lines = []
     lines.append(f'  (footprint "{LIB}:{fp.name}"')
-    lines.append(f'    (layer "F.Cu")')
+    lines.append(f'    (layer "{fp.layer}.Cu")')
     lines.append("    ${p.at}")
     lines.append(f'    (property "Reference" "${{p.ref}}" (at {fmt(rat[0])} {fmt(rat[1])} ${{p.r}}) (layer "{rlayer}") ${{p.ref_hide}} '
                  f'(effects (font (size 1 1) (thickness 0.15)){" (justify mirror)" if rlayer.startswith("B.") else ""}))')
-    lines.append(f"    (attr {fp.attr} exclude_from_pos_files exclude_from_bom allow_soldermask_bridges)")
+    lines.append(f"    (attr {attr_flags(fp)})")
     for i, g in enumerate(fp.grs):
         lines.append("    " + _gr_sexpr(fp, i, g, True))
     for i, p in enumerate(fp.pads):
@@ -554,6 +562,42 @@ def reset_fp():
     return fp
 
 
+FACE_A = RIGHT_FACE   # underside of the LEFT half: the one face JLCPCB assembles
+
+
+def reset_1187a_fp(face="F"):
+    """XKB TS-1187A-B-A-B, JLCPCB Basic part C318884, factory-placed on face A only.
+
+    The KiCad library copy is a normal front-side footprint (flip it onto face A in KiCad). The Ergogen
+    module is emitted already flipped onto FACE_A, so Ergogen boards get it on the assembled side with
+    correct position-file side and rotation.
+    """
+    sx = 1 if face == "F" else -1
+    fp = Footprint(
+        "SW_Reset_TS-1187A_FaceA",
+        "XKB TS-1187A-B-A-B (JLCPCB/LCSC C318884, Basic) 5.1 x 5.1 x 1.5 mm top-actuated SMD tactile switch. "
+        "JLCPCB-assembled on face A only (KiCad " + FACE_A + "): on the LEFT half it faces down (press through "
+        "the tray), on the RIGHT half it faces up (keep it outside the plate). Land pattern = KiCad "
+        "SW_Push_1P1T_XKB_TS-1187A (pads 1.0 x 0.75 at x +-3.0, y +-1.875). Pins 1 and 2 pairs are joined inside.",
+        "reset tactile switch TS-1187A SMD JLCPCB basic face A",
+        "reset_switch_ts1187a_face_a", {"from": "RST", "to": "GND"}, attr="smd")
+    fp.layer = face
+    fp.assembled = True
+    fp.ref = ("SW**", (0, -3.6 * 1), f"{face}.SilkS")
+    for num, y in (("1", -1.875), ("2", 1.875)):
+        for x in (-3.0, 3.0):
+            fp.pad(num, "smd", "rect", (x * sx, y), (1.0, 0.75), face_layers(face, paste=True),
+                   net=("param", "from" if num == "1" else "to"))
+    fp.rect(f"{face}.Fab", (-2.55, -2.55), (2.55, 2.55), 0.1)
+    fp.circle(f"{face}.Fab", (0, 0), 1.2, 0.1)
+    fp.rect(f"{face}.CrtYd", (-3.75, -2.8), (3.75, 2.8), 0.05)
+    for a, b in (((-2.75, -1.0), (-2.75, 1.0)), ((2.75, -1.0), (2.75, 1.0)),
+                 ((-1.3, -2.75), (1.3, -2.75)), ((-1.3, 2.75), (1.3, 2.75))):
+        fp.line(f"{face}.SilkS", a, b, 0.12)
+    fp.text(f"{face}.SilkS", "RST", (0, 3.6), size=0.7, th=0.12)
+    return fp
+
+
 JST_DY = 3.0   # offset of the second (other-face) hole pair
 
 
@@ -590,7 +634,7 @@ def jst_fp():
     return fp
 
 
-ALL = [switch_fp, controller_fp, niceview_fp, power_switch_fp, reset_fp, jst_fp]
+ALL = [switch_fp, controller_fp, niceview_fp, power_switch_fp, reset_fp, reset_1187a_fp, jst_fp]
 
 
 def main():
@@ -600,8 +644,9 @@ def main():
         fp = f()
         with open(os.path.join(PRETTY, fp.name + ".kicad_mod"), "w") as fh:
             fh.write(to_kicad_mod(fp))
+        efp = f(FACE_A) if f is reset_1187a_fp else fp
         with open(os.path.join(ERGO, fp.ergo_name + ".js"), "w") as fh:
-            fh.write(to_ergogen(fp))
+            fh.write(to_ergogen(efp))
         print(f"wrote {fp.name}.kicad_mod and ergogen/{fp.ergo_name}.js ({len(fp.pads)} pads)")
 
 
