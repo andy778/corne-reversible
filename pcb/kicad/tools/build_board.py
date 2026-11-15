@@ -117,7 +117,8 @@ def fanout_plan():
     ]
 
 
-FANOUT_X = 9.0  # stub end, just outside the hole pads (edge at 8.47)
+FANOUT_X = 9.0
+MOUNT_KEEPOUT_R = 2.6  # no routed copper within this radius of a mounting hole centre (M2 head is 3.8 mm)  # stub end, just outside the hole pads (edge at 8.47)
 
 
 # ---------------------------------------------------------------------------- helpers
@@ -342,6 +343,12 @@ def make_router(board):
     (x0, y0), (x1, y1) = f(-7.0, -16.5), f(7.0, 16.6)
     for L in (0, 1):
         r.add_keepout(L, box(x0, y0, x1, y1))
+    # Mounting holes: keep routed copper outside the M2 screw head / insert boss footprint
+    for fp in board.GetFootprints():
+        if fp.GetFPID().GetLibItemName().wx_str() == "MountingHole_2.2mm_M2":
+            c = fp.GetPosition()
+            for L in (0, 1):
+                r.add_keepout(L, Point(mm(c.x), mm(c.y)).buffer(MOUNT_KEEPOUT_R, 32))
     return r
 
 

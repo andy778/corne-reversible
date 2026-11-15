@@ -47,7 +47,7 @@ cd pcb/ergogen && npx -y ergogen@4.2.1 . -o output --clean --debug --svg && pyth
 | --- | --- |
 | Size | **146.28 x 84.01 mm** (outline bounding box, 42-key), 100.9 cm2. 2 layers, 1.6 mm |
 | Origin | KiCad (0, 0) = centre of the outer-column bottom key; Ergogen coordinates are the same with y negated |
-| Copper | 654 track segments (3.14 m), 106 vias (0.6/0.3 mm) |
+| Copper | 669 track segments (3.15 m), 106 vias (0.6/0.3 mm) |
 | Mounting holes | M2, 2.2 mm NPTH, Ergogen frame: H1 (30.075, 32.65), H2 (65.675, 34.54), H3 (30.075, 13.6), H4 (85.725, -25.645), H5 (115.75, 3.855). H1-H4 moved in this WP for the case inserts (see `pcb/ergogen/README.md`) |
 | Break line | x = 9.525 (KiCad), 38 holes of 0.6 mm in Edge.Cuts |
 
@@ -83,7 +83,7 @@ Net classes: Default 0.25, Power (BAT_P, RAW) 0.5, Ground (GND) 0.4, Logic3V3 (V
 
 **Power.** JST pin 2 (BAT_P, both hole pairs) -> MSK12C02 pin 1 (both faces) ; MSK12C02 common pin 2 (both faces) -> controller RAW. JST pin 1 and the reset button go to GND. Decision on the WP5 battery placeholder holes `HB1`/`HB2` (B+/B-): **kept, but their jumper target pads have no net and nothing is routed to them.** The plan asked for the holes, and on a socketed nice!nano or SuperMini the battery reaches the controller through RAW. With no copper on the target pads, bridging a B+/B- jumper on either or both faces connects the hole to an isolated pad, so the CRITICAL battery short in the WP5 hazard table cannot happen on this board. If a future controller needs B+ there, that is a board change.
 
-**Reset.** TS-1187A pin 1 (both pads) -> RST, pin 2 (both pads) -> GND.
+**Mounting holes.** The router keeps its copper at least 2.6 mm (copper edge) from every mounting-hole centre, outside an M2 screw head (3.8 mm). Measured nearest copper edge from the centre: H1 2.60, H2 2.35 (fixed key-template copper), H3 2.60, H4 2.61, H5 1.50 mm. H5's 1.50 mm is the nice!view MOSI lane on F (and the CS lane on B, under the plastic boss); a single net under the screw head cannot short to anything even if the mask is scratched, but a nylon washer at H5 costs nothing.\n\n**Reset.** TS-1187A pin 1 (both pads) -> RST, pin 2 (both pads) -> GND.
 
 **Break-off tab.** Only COL_D21, ROW0, ROW1 and ROW2 cross x = 9.525 (checked); they cross in the three gaps of the perforation, at least 0.30 mm from every bite hole (DRC copper-to-edge). No other copper is in the tab. With the tab removed the remaining 18 keys and everything else stay connected (checked).
 

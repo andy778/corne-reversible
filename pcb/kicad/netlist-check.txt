@@ -86,69 +86,69 @@ PASS  [LEFT] pin VCC holes form one island (1)
 PASS  [LEFT] pin RST holes form one island (1)
 PASS  [LEFT] pin RAW holes form one island (1)
 PASS  [LEFT] no two controller pins on one island 
+PASS  [LEFT] c5top SW18: column pin D14 -> all 4 pad-1 socket pads
+PASS  [LEFT] c5top SW18: pad 2 (4 pads) -> D18 anode
+PASS  [LEFT] c5top D18: cathode -> row pin D4
+PASS  [LEFT] c2bottom SW7: column pin D19 -> all 4 pad-1 socket pads
+PASS  [LEFT] c2bottom SW7: pad 2 (4 pads) -> D7 anode
+PASS  [LEFT] c2bottom D7: cathode -> row pin D6
+PASS  [LEFT] c5home SW17: column pin D14 -> all 4 pad-1 socket pads
+PASS  [LEFT] c5home SW17: pad 2 (4 pads) -> D17 anode
+PASS  [LEFT] c5home D17: cathode -> row pin D5
+PASS  [LEFT] c4bottom SW13: column pin D15 -> all 4 pad-1 socket pads
+PASS  [LEFT] c4bottom SW13: pad 2 (4 pads) -> D13 anode
+PASS  [LEFT] c4bottom D13: cathode -> row pin D6
+PASS  [LEFT] c2top SW9: column pin D19 -> all 4 pad-1 socket pads
+PASS  [LEFT] c2top SW9: pad 2 (4 pads) -> D9 anode
+PASS  [LEFT] c2top D9: cathode -> row pin D4
+PASS  [LEFT] thumb1 SW20: column pin D15 -> all 4 pad-1 socket pads
+PASS  [LEFT] thumb1 SW20: pad 2 (4 pads) -> D20 anode
+PASS  [LEFT] thumb1 D20: cathode -> row pin D7
+PASS  [LEFT] c1top SW6: column pin D20 -> all 4 pad-1 socket pads
+PASS  [LEFT] c1top SW6: pad 2 (4 pads) -> D6 anode
+PASS  [LEFT] c1top D6: cathode -> row pin D4
+PASS  [LEFT] c4home SW14: column pin D15 -> all 4 pad-1 socket pads
+PASS  [LEFT] c4home SW14: pad 2 (4 pads) -> D14 anode
+PASS  [LEFT] c4home D14: cathode -> row pin D5
+PASS  [LEFT] c1bottom SW4: column pin D20 -> all 4 pad-1 socket pads
+PASS  [LEFT] c1bottom SW4: pad 2 (4 pads) -> D4 anode
+PASS  [LEFT] c1bottom D4: cathode -> row pin D6
 PASS  [LEFT] c3bottom SW10: column pin D18 -> all 4 pad-1 socket pads
 PASS  [LEFT] c3bottom SW10: pad 2 (4 pads) -> D10 anode
 PASS  [LEFT] c3bottom D10: cathode -> row pin D6
 PASS  [LEFT] c0top SW3: column pin D21 -> all 4 pad-1 socket pads
 PASS  [LEFT] c0top SW3: pad 2 (4 pads) -> D3 anode
 PASS  [LEFT] c0top D3: cathode -> row pin D4
-PASS  [LEFT] c3home SW11: column pin D18 -> all 4 pad-1 socket pads
-PASS  [LEFT] c3home SW11: pad 2 (4 pads) -> D11 anode
-PASS  [LEFT] c3home D11: cathode -> row pin D5
-PASS  [LEFT] c5home SW17: column pin D14 -> all 4 pad-1 socket pads
-PASS  [LEFT] c5home SW17: pad 2 (4 pads) -> D17 anode
-PASS  [LEFT] c5home D17: cathode -> row pin D5
-PASS  [LEFT] c1home SW5: column pin D20 -> all 4 pad-1 socket pads
-PASS  [LEFT] c1home SW5: pad 2 (4 pads) -> D5 anode
-PASS  [LEFT] c1home D5: cathode -> row pin D5
-PASS  [LEFT] thumb2 SW21: column pin D14 -> all 4 pad-1 socket pads
-PASS  [LEFT] thumb2 SW21: pad 2 (4 pads) -> D21 anode
-PASS  [LEFT] thumb2 D21: cathode -> row pin D7
-PASS  [LEFT] c0home SW2: column pin D21 -> all 4 pad-1 socket pads
-PASS  [LEFT] c0home SW2: pad 2 (4 pads) -> D2 anode
-PASS  [LEFT] c0home D2: cathode -> row pin D5
-PASS  [LEFT] c1top SW6: column pin D20 -> all 4 pad-1 socket pads
-PASS  [LEFT] c1top SW6: pad 2 (4 pads) -> D6 anode
-PASS  [LEFT] c1top D6: cathode -> row pin D4
-PASS  [LEFT] c2home SW8: column pin D19 -> all 4 pad-1 socket pads
-PASS  [LEFT] c2home SW8: pad 2 (4 pads) -> D8 anode
-PASS  [LEFT] c2home D8: cathode -> row pin D5
-PASS  [LEFT] c0bottom SW1: column pin D21 -> all 4 pad-1 socket pads
-PASS  [LEFT] c0bottom SW1: pad 2 (4 pads) -> D1 anode
-PASS  [LEFT] c0bottom D1: cathode -> row pin D6
-PASS  [LEFT] c1bottom SW4: column pin D20 -> all 4 pad-1 socket pads
-PASS  [LEFT] c1bottom SW4: pad 2 (4 pads) -> D4 anode
-PASS  [LEFT] c1bottom D4: cathode -> row pin D6
-PASS  [LEFT] c4home SW14: column pin D15 -> all 4 pad-1 socket pads
-PASS  [LEFT] c4home SW14: pad 2 (4 pads) -> D14 anode
-PASS  [LEFT] c4home D14: cathode -> row pin D5
-PASS  [LEFT] c3top SW12: column pin D18 -> all 4 pad-1 socket pads
-PASS  [LEFT] c3top SW12: pad 2 (4 pads) -> D12 anode
-PASS  [LEFT] c3top D12: cathode -> row pin D4
-PASS  [LEFT] c5top SW18: column pin D14 -> all 4 pad-1 socket pads
-PASS  [LEFT] c5top SW18: pad 2 (4 pads) -> D18 anode
-PASS  [LEFT] c5top D18: cathode -> row pin D4
-PASS  [LEFT] thumb0 SW19: column pin D18 -> all 4 pad-1 socket pads
-PASS  [LEFT] thumb0 SW19: pad 2 (4 pads) -> D19 anode
-PASS  [LEFT] thumb0 D19: cathode -> row pin D7
-PASS  [LEFT] thumb1 SW20: column pin D15 -> all 4 pad-1 socket pads
-PASS  [LEFT] thumb1 SW20: pad 2 (4 pads) -> D20 anode
-PASS  [LEFT] thumb1 D20: cathode -> row pin D7
-PASS  [LEFT] c2top SW9: column pin D19 -> all 4 pad-1 socket pads
-PASS  [LEFT] c2top SW9: pad 2 (4 pads) -> D9 anode
-PASS  [LEFT] c2top D9: cathode -> row pin D4
-PASS  [LEFT] c2bottom SW7: column pin D19 -> all 4 pad-1 socket pads
-PASS  [LEFT] c2bottom SW7: pad 2 (4 pads) -> D7 anode
-PASS  [LEFT] c2bottom D7: cathode -> row pin D6
-PASS  [LEFT] c4bottom SW13: column pin D15 -> all 4 pad-1 socket pads
-PASS  [LEFT] c4bottom SW13: pad 2 (4 pads) -> D13 anode
-PASS  [LEFT] c4bottom D13: cathode -> row pin D6
 PASS  [LEFT] c4top SW15: column pin D15 -> all 4 pad-1 socket pads
 PASS  [LEFT] c4top SW15: pad 2 (4 pads) -> D15 anode
 PASS  [LEFT] c4top D15: cathode -> row pin D4
 PASS  [LEFT] c5bottom SW16: column pin D14 -> all 4 pad-1 socket pads
 PASS  [LEFT] c5bottom SW16: pad 2 (4 pads) -> D16 anode
 PASS  [LEFT] c5bottom D16: cathode -> row pin D6
+PASS  [LEFT] c1home SW5: column pin D20 -> all 4 pad-1 socket pads
+PASS  [LEFT] c1home SW5: pad 2 (4 pads) -> D5 anode
+PASS  [LEFT] c1home D5: cathode -> row pin D5
+PASS  [LEFT] c2home SW8: column pin D19 -> all 4 pad-1 socket pads
+PASS  [LEFT] c2home SW8: pad 2 (4 pads) -> D8 anode
+PASS  [LEFT] c2home D8: cathode -> row pin D5
+PASS  [LEFT] c0bottom SW1: column pin D21 -> all 4 pad-1 socket pads
+PASS  [LEFT] c0bottom SW1: pad 2 (4 pads) -> D1 anode
+PASS  [LEFT] c0bottom D1: cathode -> row pin D6
+PASS  [LEFT] c3top SW12: column pin D18 -> all 4 pad-1 socket pads
+PASS  [LEFT] c3top SW12: pad 2 (4 pads) -> D12 anode
+PASS  [LEFT] c3top D12: cathode -> row pin D4
+PASS  [LEFT] c3home SW11: column pin D18 -> all 4 pad-1 socket pads
+PASS  [LEFT] c3home SW11: pad 2 (4 pads) -> D11 anode
+PASS  [LEFT] c3home D11: cathode -> row pin D5
+PASS  [LEFT] thumb0 SW19: column pin D18 -> all 4 pad-1 socket pads
+PASS  [LEFT] thumb0 SW19: pad 2 (4 pads) -> D19 anode
+PASS  [LEFT] thumb0 D19: cathode -> row pin D7
+PASS  [LEFT] thumb2 SW21: column pin D14 -> all 4 pad-1 socket pads
+PASS  [LEFT] thumb2 SW21: pad 2 (4 pads) -> D21 anode
+PASS  [LEFT] thumb2 D21: cathode -> row pin D7
+PASS  [LEFT] c0home SW2: column pin D21 -> all 4 pad-1 socket pads
+PASS  [LEFT] c0home SW2: pad 2 (4 pads) -> D2 anode
+PASS  [LEFT] c0home D2: cathode -> row pin D5
 PASS  [LEFT] power switch common (pin 2, both faces) -> RAW
 PASS  [LEFT] JST + (both hole pairs) -> power switch pin 1 (both faces), not directly on any controller pin
 PASS  [LEFT] JST - (both hole pairs) -> GND
@@ -189,69 +189,69 @@ PASS  [RIGHT] pin D2 holes form one island (1)
 PASS  [RIGHT] pin D0 holes form one island (1)
 PASS  [RIGHT] pin D1 holes form one island (1)
 PASS  [RIGHT] no two controller pins on one island 
+PASS  [RIGHT] c5top SW18: column pin D14 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c5top SW18: pad 2 (4 pads) -> D18 anode
+PASS  [RIGHT] c5top D18: cathode -> row pin D4
+PASS  [RIGHT] c2bottom SW7: column pin D19 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c2bottom SW7: pad 2 (4 pads) -> D7 anode
+PASS  [RIGHT] c2bottom D7: cathode -> row pin D6
+PASS  [RIGHT] c5home SW17: column pin D14 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c5home SW17: pad 2 (4 pads) -> D17 anode
+PASS  [RIGHT] c5home D17: cathode -> row pin D5
+PASS  [RIGHT] c4bottom SW13: column pin D15 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c4bottom SW13: pad 2 (4 pads) -> D13 anode
+PASS  [RIGHT] c4bottom D13: cathode -> row pin D6
+PASS  [RIGHT] c2top SW9: column pin D19 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c2top SW9: pad 2 (4 pads) -> D9 anode
+PASS  [RIGHT] c2top D9: cathode -> row pin D4
+PASS  [RIGHT] thumb1 SW20: column pin D15 -> all 4 pad-1 socket pads
+PASS  [RIGHT] thumb1 SW20: pad 2 (4 pads) -> D20 anode
+PASS  [RIGHT] thumb1 D20: cathode -> row pin D7
+PASS  [RIGHT] c1top SW6: column pin D20 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c1top SW6: pad 2 (4 pads) -> D6 anode
+PASS  [RIGHT] c1top D6: cathode -> row pin D4
+PASS  [RIGHT] c4home SW14: column pin D15 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c4home SW14: pad 2 (4 pads) -> D14 anode
+PASS  [RIGHT] c4home D14: cathode -> row pin D5
+PASS  [RIGHT] c1bottom SW4: column pin D20 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c1bottom SW4: pad 2 (4 pads) -> D4 anode
+PASS  [RIGHT] c1bottom D4: cathode -> row pin D6
 PASS  [RIGHT] c3bottom SW10: column pin D18 -> all 4 pad-1 socket pads
 PASS  [RIGHT] c3bottom SW10: pad 2 (4 pads) -> D10 anode
 PASS  [RIGHT] c3bottom D10: cathode -> row pin D6
 PASS  [RIGHT] c0top SW3: column pin D21 -> all 4 pad-1 socket pads
 PASS  [RIGHT] c0top SW3: pad 2 (4 pads) -> D3 anode
 PASS  [RIGHT] c0top D3: cathode -> row pin D4
-PASS  [RIGHT] c3home SW11: column pin D18 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c3home SW11: pad 2 (4 pads) -> D11 anode
-PASS  [RIGHT] c3home D11: cathode -> row pin D5
-PASS  [RIGHT] c5home SW17: column pin D14 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c5home SW17: pad 2 (4 pads) -> D17 anode
-PASS  [RIGHT] c5home D17: cathode -> row pin D5
-PASS  [RIGHT] c1home SW5: column pin D20 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c1home SW5: pad 2 (4 pads) -> D5 anode
-PASS  [RIGHT] c1home D5: cathode -> row pin D5
-PASS  [RIGHT] thumb2 SW21: column pin D14 -> all 4 pad-1 socket pads
-PASS  [RIGHT] thumb2 SW21: pad 2 (4 pads) -> D21 anode
-PASS  [RIGHT] thumb2 D21: cathode -> row pin D7
-PASS  [RIGHT] c0home SW2: column pin D21 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c0home SW2: pad 2 (4 pads) -> D2 anode
-PASS  [RIGHT] c0home D2: cathode -> row pin D5
-PASS  [RIGHT] c1top SW6: column pin D20 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c1top SW6: pad 2 (4 pads) -> D6 anode
-PASS  [RIGHT] c1top D6: cathode -> row pin D4
-PASS  [RIGHT] c2home SW8: column pin D19 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c2home SW8: pad 2 (4 pads) -> D8 anode
-PASS  [RIGHT] c2home D8: cathode -> row pin D5
-PASS  [RIGHT] c0bottom SW1: column pin D21 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c0bottom SW1: pad 2 (4 pads) -> D1 anode
-PASS  [RIGHT] c0bottom D1: cathode -> row pin D6
-PASS  [RIGHT] c1bottom SW4: column pin D20 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c1bottom SW4: pad 2 (4 pads) -> D4 anode
-PASS  [RIGHT] c1bottom D4: cathode -> row pin D6
-PASS  [RIGHT] c4home SW14: column pin D15 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c4home SW14: pad 2 (4 pads) -> D14 anode
-PASS  [RIGHT] c4home D14: cathode -> row pin D5
-PASS  [RIGHT] c3top SW12: column pin D18 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c3top SW12: pad 2 (4 pads) -> D12 anode
-PASS  [RIGHT] c3top D12: cathode -> row pin D4
-PASS  [RIGHT] c5top SW18: column pin D14 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c5top SW18: pad 2 (4 pads) -> D18 anode
-PASS  [RIGHT] c5top D18: cathode -> row pin D4
-PASS  [RIGHT] thumb0 SW19: column pin D18 -> all 4 pad-1 socket pads
-PASS  [RIGHT] thumb0 SW19: pad 2 (4 pads) -> D19 anode
-PASS  [RIGHT] thumb0 D19: cathode -> row pin D7
-PASS  [RIGHT] thumb1 SW20: column pin D15 -> all 4 pad-1 socket pads
-PASS  [RIGHT] thumb1 SW20: pad 2 (4 pads) -> D20 anode
-PASS  [RIGHT] thumb1 D20: cathode -> row pin D7
-PASS  [RIGHT] c2top SW9: column pin D19 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c2top SW9: pad 2 (4 pads) -> D9 anode
-PASS  [RIGHT] c2top D9: cathode -> row pin D4
-PASS  [RIGHT] c2bottom SW7: column pin D19 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c2bottom SW7: pad 2 (4 pads) -> D7 anode
-PASS  [RIGHT] c2bottom D7: cathode -> row pin D6
-PASS  [RIGHT] c4bottom SW13: column pin D15 -> all 4 pad-1 socket pads
-PASS  [RIGHT] c4bottom SW13: pad 2 (4 pads) -> D13 anode
-PASS  [RIGHT] c4bottom D13: cathode -> row pin D6
 PASS  [RIGHT] c4top SW15: column pin D15 -> all 4 pad-1 socket pads
 PASS  [RIGHT] c4top SW15: pad 2 (4 pads) -> D15 anode
 PASS  [RIGHT] c4top D15: cathode -> row pin D4
 PASS  [RIGHT] c5bottom SW16: column pin D14 -> all 4 pad-1 socket pads
 PASS  [RIGHT] c5bottom SW16: pad 2 (4 pads) -> D16 anode
 PASS  [RIGHT] c5bottom D16: cathode -> row pin D6
+PASS  [RIGHT] c1home SW5: column pin D20 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c1home SW5: pad 2 (4 pads) -> D5 anode
+PASS  [RIGHT] c1home D5: cathode -> row pin D5
+PASS  [RIGHT] c2home SW8: column pin D19 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c2home SW8: pad 2 (4 pads) -> D8 anode
+PASS  [RIGHT] c2home D8: cathode -> row pin D5
+PASS  [RIGHT] c0bottom SW1: column pin D21 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c0bottom SW1: pad 2 (4 pads) -> D1 anode
+PASS  [RIGHT] c0bottom D1: cathode -> row pin D6
+PASS  [RIGHT] c3top SW12: column pin D18 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c3top SW12: pad 2 (4 pads) -> D12 anode
+PASS  [RIGHT] c3top D12: cathode -> row pin D4
+PASS  [RIGHT] c3home SW11: column pin D18 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c3home SW11: pad 2 (4 pads) -> D11 anode
+PASS  [RIGHT] c3home D11: cathode -> row pin D5
+PASS  [RIGHT] thumb0 SW19: column pin D18 -> all 4 pad-1 socket pads
+PASS  [RIGHT] thumb0 SW19: pad 2 (4 pads) -> D19 anode
+PASS  [RIGHT] thumb0 D19: cathode -> row pin D7
+PASS  [RIGHT] thumb2 SW21: column pin D14 -> all 4 pad-1 socket pads
+PASS  [RIGHT] thumb2 SW21: pad 2 (4 pads) -> D21 anode
+PASS  [RIGHT] thumb2 D21: cathode -> row pin D7
+PASS  [RIGHT] c0home SW2: column pin D21 -> all 4 pad-1 socket pads
+PASS  [RIGHT] c0home SW2: pad 2 (4 pads) -> D2 anode
+PASS  [RIGHT] c0home D2: cathode -> row pin D5
 PASS  [RIGHT] power switch common (pin 2, both faces) -> RAW
 PASS  [RIGHT] JST + (both hole pairs) -> power switch pin 1 (both faces), not directly on any controller pin
 PASS  [RIGHT] JST - (both hole pairs) -> GND
