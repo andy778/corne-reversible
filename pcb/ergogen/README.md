@@ -63,11 +63,11 @@ The 36-key plate and tray remove the outer column, its cutouts, and the tab area
 | nice!view header origin | 115.75 | 11.855 |
 | Power switch origin | 131.55 | 42.505 |
 | JST origin | 129.75 | 24.505 |
-| Mount holes H1..H5 | (30.075, 31.6), (65.425, 33.79), (30.075, 12.55), (85.725, -25.645), (115.75, 3.855) | |
+| Mount holes H1..H5 | (30.075, 32.65), (65.675, 34.54), (30.075, 13.6), (85.725, -25.645), (115.75, 3.855) | |
 
 The reset press hole in `tray_*_left` is at the reset centre. The reset button is **top actuated, 1.5 mm tall, courtyard 7.5 x 5.6 mm**, in the strip right of the controller, outside the key area. On the right half it faces up: WP6 must leave the plate open (or notch it) over that spot or the plate will press on the button. On the left half it faces down into the tray press hole.
 
-Mounting holes: M2 (2.2 mm). H1 to H4 sit near key-tile corners, columns 1 to 5 and the thumb cluster. WP7 moved them (for the WP6 case) from (28.575, 31.1), (66.675, 34.29), (28.575, 12.05), (85.725, -22.645) so that a 3.2 mm heat-set insert hole keeps at least 1.2 mm of plastic to every socket and diode pad plus a 0.25 mm keep-out, on both faces (centre to nearest pad edge: H1/H3 3.69 mm, H2 3.87 mm, H4 3.24 mm, H5 4.89 mm); H5 is in the controller strip below the nice!view header. They are NPTH with no copper on either face, so they work on both faces. None is in the outer column or the tab, so all five survive the 36-key break.
+Mounting holes: M2 (2.2 mm). H1 to H4 sit near key-tile corners, columns 1 to 5 and the thumb cluster. WP7 moved them (for the WP6 case) from (28.575, 31.1), (66.675, 34.29), (28.575, 12.05), (85.725, -22.645) so that a 3.2 mm heat-set insert hole keeps at least 1.2 mm of plastic to every socket and diode pad plus a 0.25 mm keep-out, on both faces (centre to nearest pad edge: H1/H3 3.07 mm, H2 3.26 mm, H4 3.24 mm, H5 4.89 mm), and so that no hole courtyard (r 1.4 mm) overlaps a socket courtyard; H5 is in the controller strip below the nice!view header. They are NPTH with no copper on either face, so they work on both faces. None is in the outer column or the tab, so all five survive the 36-key break.
 
 ## Break-off tab (outer column)
 
@@ -78,7 +78,7 @@ Mounting holes: M2 (2.2 mm). H1 to H4 sit near key-tile corners, columns 1 to 5 
 
 ## Results (KiCad 10 `kicad-cli`)
 
-The generated `.kicad_pcb` opens, plots (SVG in `preview/`) and runs DRC. DRC findings with default KiCad rules (0.5 mm edge, 0.25 mm hole): 214 unconnected items (expected, no routing) and, from the WP5 footprints, 42 hole-to-hole and 42 pad-to-peg-slot "edge clearance" hits (peg slot NPTH to the socket pad 0.377 mm; WP5 accepted these against JLCPCB rules of 0.2 mm), plus library and silkscreen warnings. The layout adds **no copper, hole or edge clearance violation** of its own. The remaining layout findings are about 17 `courtyards_overlap` / `npth_inside_courtyard` hits between a mounting hole's courtyard and the approximate socket courtyard rectangles (the hole copper clearance itself passes).
+The generated `.kicad_pcb` opens, plots (SVG in `preview/`) and runs DRC. DRC findings with default KiCad rules (0.5 mm edge, 0.25 mm hole): 214 unconnected items (expected, no routing) and, from the WP5 footprints, 42 hole-to-hole and 42 pad-to-peg-slot "edge clearance" hits (peg slot NPTH to the socket pad 0.377 mm; WP5 accepted these against JLCPCB rules of 0.2 mm), plus library and silkscreen warnings. The layout adds **no copper, hole or edge clearance violation** of its own. The remaining layout findings are about 17 `courtyards_overlap` / `npth_inside_courtyard` hits between a mounting hole's courtyard and the approximate socket courtyard rectangles (the hole copper clearance itself passes). (WP7 update: after the mounting-hole move there are no courtyard or NPTH-in-courtyard findings left.)
 
 ## Unverified / risks
 
@@ -86,7 +86,7 @@ The generated `.kicad_pcb` opens, plots (SVG in `preview/`) and runs DRC. DRC fi
 2. **Thumb keycap clearance**: the third thumb is rotated and 21.05 mm from the second (a spacing I chose: 19.05 mm would make keycap corners touch). Not checked with real keycaps.
 3. **Break line and the Choc pad tips** (above): the perforation nibbles the tip of the Choc pad 1 at 3 places per side. For an MX-only build there is no issue. The WP5 pad could be shortened by 0.2 mm to clear the line; **a WP5 footprint change if Choc on a 36-key build matters**.
 4. **No JLCPCB mouse-bite check** (docs/bom.md absent). Only 4 nets cross, between 0.6 mm webs; a perforation line over 57 mm may be fragile.
-5. **Mounting hole courtyard overlaps** (see Results). A hole sits 0.04 mm to 1.2 mm from socket copper in places; DRC hole clearance passes at 0.25 mm. Check by eye in KiCad.
+5. **Mounting hole courtyard overlaps**: resolved by the WP7 hole move (holes are now at least 3.07 mm from any socket or diode pad centre-to-edge, and outside the socket courtyards). The socket courtyards are still approximate rectangles.
 6. **Edge parts positions** (power switch, reset, JST at the right edge) are placed by eye. The JST courtyard (plug and lead) extends past the right edge by design (up to 8 mm beyond the pads on the B face); WP6 needs an opening. The controller is placed so the footprint's USB end sits at the top edge; the real USB-C overhang was not measured.
 7. **nice!view fit**: only the 5-hole header is placed. The 1.3 inch display module's own board outline (about 40 mm wide) was not checked against keys and the controller; it is placed where the crkbd OLED header sits by intent, not verified.
 8. **Ergogen outline fillet** is 1 mm on the union; the `expand` tray offset gives rounded outside corners.
