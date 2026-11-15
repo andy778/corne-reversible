@@ -18,6 +18,7 @@ The config sits directly in `firmware/`, not `firmware/config/`. The reusable wo
 `.github/workflows/build-firmware.yml` calls `zmkfirmware/zmk/.github/workflows/build-user-config.yml` with `build_matrix_path: firmware/build.yaml` and `config_path: firmware`. Runs on push or PR touching `firmware/**`, and on manual dispatch.
 
 Artifacts (from the run's summary page):
+
 - `artifact-corne_left` containing `corne_left.uf2` (central, Studio on)
 - `artifact-corne_right` containing `corne_right.uf2`
 - `corne-firmware` merged archive with both
@@ -54,9 +55,11 @@ Adjust: BT_SEL 0-4, BT_PRV/NXT, BT_CLR (current profile), BT_CLR_ALL (all bonds)
 Only after the break-off tab is snapped off on the PCB.
 
 1. In `corne.keymap`, add near the top, after the includes:
-   ```
+
+   ```dts
    / { chosen { zmk,physical-layout = &foostan_corne_5col_layout; }; };
    ```
+
    The 5-column transform is already defined in `corne.dtsi`, so the shields need no change.
 2. Drop the first and last key of each of the three main rows in every layer. Thumbs stay. That is 10 + 10 + 10 + 6 = 36 bindings per layer, or ZMK rejects the keymap.
 
@@ -72,7 +75,7 @@ Not built or tested yet.
 
 Requires the ZMK dev environment (`west`, Zephyr SDK) or the `zmkfirmware/zmk-build-arm` container. From the repo root:
 
-```
+```bash
 west init -l firmware
 west update
 west build -s zmk/app -b nice_nano//zmk -d build/left -S studio-rpc-usb-uart \
