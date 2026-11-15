@@ -39,6 +39,14 @@ ZMK Studio is on the left half only (`studio-rpc-usb-uart` snippet plus `-DCONFI
 
 Locking is on (`CONFIG_ZMK_STUDIO_LOCKING=y`), so press `&studio_unlock` (top-left of the adjust layer) before editing. The lock also re-engages on disconnect.
 
+## Host layout: Finnish/Swedish
+
+The keymap assumes the computer is set to the Finnish or Swedish (ISO) keyboard layout. `corne.keymap` defines `FI_*` names for the key positions that produce each character under that layout.
+
+- Base layer: Å Ä Ö sit right of P and L, `-` replaces `/`, Backspace moves to the right thumb (Alt is on that thumb in Lower and Raise).
+- Raise: € (AltGr+E) and the Nordic symbol positions. `^`, `~` and `` ` `` are dead keys on this layout, so they are macros that add a space.
+- With the host on US layout every symbol on Raise and the Nordic letters will be wrong.
+
 ## Layers
 
 | # | Name | Reach |
