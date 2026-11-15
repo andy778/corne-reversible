@@ -68,7 +68,7 @@ Plain mirroring in the slicer is **not** enough, because the halves differ in th
 | `batt_clear`, `batt_top`, `batt_skin` | 0.5, 0.5, 0.8 | Pocket clearance in xy; clearance between battery top and PCB underside (trim socket tails); floor left under the pocket |
 | `pcb_bottom` | derived | `max(floor_t + under_pcb, batt_skin + batt_t + batt_top)` = 6.3 mm. So the general under-PCB clearance is 4.3 mm, not 3.0 mm, because the battery pocket sets the PCB height |
 | `boss_od`, `insert_d`, `insert_len` | 6.0, 3.2, 4.0 | Insert bosses at the 5 mounting holes. Insert hole 3.2 mm for an M2 insert of 3.5 mm OD, 3 to 4 mm long; hole is 0.5 mm deeper than the insert |
-| `h4_insert`, `h4_pilot_d` | false, 1.8 | H4 gets a 1.8 mm pilot hole for a self-tapping M2 screw instead of an insert (see Unverified 2) |
+| `h4_insert`, `h4_pilot_d` | true, 1.8 | H4 takes an insert like the others; set false for a 1.8 mm self-tapping pilot hole instead |
 | `pad_margin` | 0.25 | Bosses keep this far from the socket copper |
 | `screw_clear`, `post_od`, `csk` | 2.4, 4.4, false | Plate screw hole, plate posts that press the PCB on the bosses (3.5 mm long for MX), optional countersink |
 | `usb_w`, `usb_z0` | 13, 1.0 | USB-C slot width; slot bottom above the PCB top |
@@ -94,7 +94,7 @@ Plain mirroring in the slicer is **not** enough, because the halves differ in th
 ## Assembly order
 
 1. Solder sockets, controller sockets, power switch, battery connector and display header to the PCB underside as in WP5/WP7 (the underside is KiCad B on the left half, KiCad F on the right). Trim the socket and header tails flush so the battery clears them. For 36 keys, break off the outer column and tab first.
-2. Press the 4 M2 heat-set inserts into the bosses (H1, H2, H3, H5) from above with a soldering iron at about 220 to 240 C (PETG), until flush with the boss top. H4 takes no insert (self-tapping, see Unverified).
+2. Press the 5 M2 heat-set inserts into the bosses (H1 to H5) from above with a soldering iron at about 220 to 240 C (PETG), until flush with the boss top.
 3. Place the battery in the pocket (foam tape under it), plug the JST connector, check polarity against the board marking, and route the lead through the JST opening or the gap between pocket and connector.
 4. Lay the PCB on the bosses (its holes over the inserts), fit the controller and display on their sockets.
 5. Place the plate on top (posts through the gap onto the PCB, plate on the wall tops), fit the 5 screws: M2 x 10 mm pan or cheese head (3.4 mm into the insert). M2 x 12 would bottom out. Do not overtighten.
@@ -141,7 +141,7 @@ ALL CHECKS PASSED
 ## Unverified
 
 1. **Only the tolerance test plate is printed.** WP6 acceptance check passed 2026-11-15: the owner's print of `test_plate_mx_tolerance.stl` holds an MX switch firmly at the 14.0 mm cutout, so `cutout_tol` stays 0.0. Screw posts, heat-set inserts and all other clearances are still by calculation only.
-2. **H4 mounting hole is squeezed by sockets.** H4 (85.725, -22.645) sits 2.1 mm from the corner of one socket pad and 2.4 mm from another. A 3.2 mm insert would leave a 0.1 mm wall, so H4 uses a 1.8 mm pilot hole for a self-tapping M2 screw (boss wall 0.82 mm) instead of an insert, which departs from "5 inserts". Alternatives: move H4 about 2 mm down in WP4/WP7, or set `h4_insert = true` and accept a paper-thin boss. Also the thinnest remaining boss walls around 3.2 mm inserts are 0.8 mm (left H2) and 0.6 mm (right H1 and H3): marginal for heat-set inserts. This is a layout issue to look at before the PCB order.
+2. **Mounting holes moved in WP7.** H1 to H4 moved clear of the socket pads (H4 now (85.725, -25.645), 3.24 mm from the nearest pad), so all five holes take a 3.2 mm insert. Thinnest boss walls by calculation: 1.16 mm (left H1, H3), 1.29 mm (H4). H4 is 3.03 mm from the board edge, so its 6 mm boss merges into the tray wall.
 3. **Socket pad keep-outs** use only the copper pads of the B-side hot-swap footprint plus 0.25 mm. The real Kailh socket bodies and solder joints may reach further; the clearance is unverified.
 4. **Insert dimensions** (M2, 3.5 mm OD, 3 to 4 mm long, 3.2 mm hole) are the common values, not a specific product. Check the datasheet of the inserts you buy and set `insert_d` / `insert_len`.
 5. **Battery size**: 20 x 30 x 5 mm assumed (task default); no 401230 pack with a PH lead was found in WP3. The pocket sets the PCB height (`pcb_bottom` 6.3 mm); with a 4.3 mm cell set `batt_t = 4.3`.

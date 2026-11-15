@@ -2,7 +2,7 @@
 
 Reversible footprints for the corne-reversible board, in KiCad and Ergogen form, plus the checks and the 1:1 paper test sheet.
 
-**Status:** generated, KiCad DRC-checked and geometry-checked. **Not yet paper-tested.** The WP5 acceptance check, a 1:1 test fit with real sockets, switches and controller on both faces, still has to be done by hand (see [Paper test](#paper-test)).
+**Status:** generated, KiCad DRC-checked and geometry-checked. **Paper-tested:** the WP5 acceptance check, a 1:1 test fit with real parts (see [Paper test](#paper-test)), passed on 2026-11-15.
 
 ## Contents
 
