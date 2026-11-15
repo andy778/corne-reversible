@@ -1,0 +1,22 @@
+# KiCad
+*.kicad_prl
+*-backups/
+*.lck
+fp-info-cache
+_autosave-*
+*.bak
+
+# Ergogen
+pcb/ergogen/output/
+
+# Firmware builds
+build/
+*.uf2
+
+# Slicer and CAD scratch
+*.gcode
+*.3mf.bak
+
+# OS
+.DS_Store
+Thumbs.db
