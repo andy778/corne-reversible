@@ -12,6 +12,7 @@ import argparse
 import json
 import math
 import os
+import shutil
 import sys
 import time
 
@@ -395,8 +396,18 @@ def main():
     ap.add_argument("--stage", default="all", choices=["prep", "template", "all"])
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--limit", type=int, default=None, help="debug: stop after N routing steps")
+    ap.add_argument("--finish-only", default=None, help="debug: load a routed board and only run the finishing step")
     args = ap.parse_args()
+    if args.finish_only:
+        board = pcbnew.LoadBoard(args.finish_only)
+        finish(board)
+        pcbnew.SaveBoard(args.out, board)
+        drop_items_from_file(args.out, DOOMED)
+        write_project(os.path.splitext(args.out)[0] + ".kicad_pro")
+        write_lib_table(os.path.dirname(args.out))
+        return
     board = load_and_prepare()
+    export_local_lib(board, os.path.dirname(args.out))
     if args.stage != "prep":
         add_templates(board)
         add_fanout(board)
@@ -406,6 +417,7 @@ def main():
     finish(board)
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     pcbnew.SaveBoard(args.out, board)
+    drop_items_from_file(args.out, DOOMED)
     write_project(os.path.splitext(args.out)[0] + ".kicad_pro")
     write_lib_table(os.path.dirname(args.out))
     log("saved", args.out)
@@ -464,6 +476,30 @@ def write_project(path):
     d["meta"]["filename"] = os.path.basename(path)
     json.dump(d, open(path, "w"), indent=2, sort_keys=True)
     open(path, "a").write("\n")
+
+
+def export_local_lib(board, d):
+    """corne_kicad_local.pretty: the two Ergogen-local footprints, flipped back to their front form."""
+    lib = os.path.join(d, "corne_kicad_local.pretty")
+    shutil.rmtree(lib, ignore_errors=True)
+    os.makedirs(lib, exist_ok=True)
+    io = pcbnew.PCB_IO_KICAD_SEXPR()
+    done = set()
+    for fp in board.GetFootprints():
+        name = fp.GetFPID().GetLibItemName().wx_str()
+        if name in ("D_SOD-123_Back", "MountingHole_2.2mm_M2") and name not in done:
+            c = pcbnew.FOOTPRINT(fp)
+            c.SetOrientationDegrees(0)
+            if c.GetLayer() == B:
+                c.Flip(c.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
+            c.SetPosition(pcbnew.VECTOR2I(0, 0))
+            c.SetReference("D**" if name.startswith("D_") else "H**")
+            for fn in ("LCSC",):
+                if c.HasField(fn):
+                    c.GetField(fn).SetText("")
+            c.SetValue(name)
+            io.FootprintSave(lib, c)
+            done.add(name)
 
 
 def write_lib_table(d):
@@ -529,7 +565,208 @@ ROUTE_PLAN = [
 
 
 def finish(board):
-    pass
+    silkscreen(board)
+    tb = board.GetTitleBlock()
+    tb.SetTitle("corne-reversible")
+    tb.SetRevision(REVISION)
+    tb.SetDate(DATE)
+    tb.SetCompany("andy778")
+    tb.SetComment(0, "Reversible Corne half: LEFT = KiCad F up, RIGHT = KiCad B up. JLCPCB assembles B (face A).")
+    remove_dangling(board)
+
+
+DOOMED = set()
+
+
+def drop_items_from_file(path, uuids):
+    """Delete top-level (segment ...)/(via ...) blocks by uuid from a saved .kicad_pcb.
+    (BOARD.Remove() corrupts SWIG type data in this pcbnew build, so it is done on the file.)"""
+    if not uuids:
+        return
+    txt = open(path).read()
+    out, i, n, dropped = [], 0, len(txt), 0
+    while i < n:
+        j = txt.find("\n\t(", i)
+        if j < 0:
+            out.append(txt[i:])
+            break
+        out.append(txt[i:j + 1])
+        # find matching paren of the block starting at j+2
+        k, depth, q = j + 2, 0, False
+        while k < n:
+            ch = txt[k]
+            if ch == '"' and txt[k - 1] != "\\":
+                q = not q
+            elif not q:
+                if ch == "(":
+                    depth += 1
+                elif ch == ")":
+                    depth -= 1
+                    if depth == 0:
+                        break
+            k += 1
+        block = txt[j + 1:k + 1]
+        head = block.lstrip()[:8]
+        if (head.startswith("(segment") or head.startswith("(via")) and any(u in block for u in uuids):
+            dropped += 1
+        else:
+            out.append(block)
+        i = k + 1
+    open(path, "w").write("".join(out))
+    log(f"dropped {dropped} dangling tracks/vias from {os.path.basename(path)}")
+    assert dropped == len(uuids), (dropped, len(uuids))
+
+
+def trim_track(d, k, cu):
+    """Shorten a needed track whose far end overhangs a T-junction back to the last copper it touches."""
+    L = d["geoms"][0][0]
+    a, b = d["ends"]
+    net = d["net"]
+
+    def touches(pnt):
+        return any(o != k and LL == L and n == net and g.distance(pnt) < d["hw"] - 0.01 for LL, g, n, o in cu)
+    if touches(a) and not touches(b):
+        keep, free = a, b
+    elif touches(b) and not touches(a):
+        keep, free = b, a
+    else:
+        return
+    line = LineString([keep, free])
+    best = 0.0
+    for LL, g, n, o in cu:
+        if o == k or LL != L or n != net:
+            continue
+        inter = d["geoms"][0][1].intersection(g)
+        if inter.is_empty or inter.area < 1e-4:
+            continue
+        for q in getattr(inter, "geoms", [inter]):
+            if q.geom_type != "Polygon":
+                continue
+            # deepest point of the overlap along the track, kept fully inside the overlap
+            c = q.representative_point()
+            ext = max(line.project(Point(xy)) for xy in q.exterior.coords)
+            best = max(best, min(ext, line.project(c) + 0.5 * (ext - line.project(c))))
+    if best <= 0.05 or best >= line.length - 1e-3:
+        return
+    np_ = line.interpolate(best)
+    t = d["obj"]
+    if free is b:
+        t.SetEnd(pt(np_.x, np_.y))
+        d["ends"] = (a, np_)
+    else:
+        t.SetStart(pt(np_.x, np_.y))
+        d["ends"] = (np_, b)
+    d["geoms"] = [(L, LineString(list(d["ends"])).buffer(d["hw"], 8))]
+    d["trimmed"] = True
+    log(f"  trimmed a dangling end by {line.length - best:.2f} mm")
+
+
+def remove_dangling(board):
+    """Drop track stubs and vias left over by the router (dead ends that connect nothing)."""
+    pads = []
+    for fp in board.GetFootprints():
+        for p in fp.Pads():
+            for L, lay in LAYER.items():
+                if p.IsOnLayer(lay) and p.GetAttribute() != pcbnew.PAD_ATTRIB_NPTH:
+                    pads.append((L, poly_from_rings(pad_polys(p, lay)), p.GetNetCode(),
+                                 f"pad:{fp.GetReference()}:{p.GetNumber()}:{p.m_Uuid.AsString()}"))
+    alive = {}
+    for t in tracks(board):
+        k = t.m_Uuid.AsString()
+        net = t.GetNetCode()
+        if t.GetClass() == "PCB_VIA":
+            c = t.GetPosition()
+            p = Point(mm(c.x), mm(c.y))
+            r = mm(t.GetWidth(F)) / 2
+            g = p.buffer(r, 16)
+            alive[k] = dict(obj=t, geoms=[(0, g), (1, g)], via=(p, r), net=net)
+        else:
+            a, b = t.GetStart(), t.GetEnd()
+            pa, pb = (mm(a.x), mm(a.y)), (mm(b.x), mm(b.y))
+            g = LineString([pa, pb]).buffer(mm(t.GetWidth()) / 2, 8)
+            alive[k] = dict(obj=t, geoms=[(0 if t.GetLayer() == F else 1, g)], ends=(Point(pa), Point(pb)), net=net,
+                            hw=mm(t.GetWidth()) / 2)
+    removed = 0
+    while True:
+        cu = list(pads)
+        for k, d in alive.items():
+            cu += [(L, g, d["net"], k) for L, g in d["geoms"]]
+        changed = False
+        for k in list(alive.keys()):
+            d = alive[k]
+            net = d["net"]
+            if "via" in d:
+                c, r = d["via"]
+                layers = {L for L, g, n, o in cu if o != k and n == net and g.distance(c) < r - 0.01}
+                dangling = len(layers) < 2
+            else:
+                L = d["geoms"][0][0]
+                dangling = any(not any(o != k and LL == L and n == net and g.distance(pnt) < d["hw"] - 0.01
+                                       for LL, g, n, o in cu) for pnt in d["ends"])
+            if not dangling:
+                continue
+            # only drop it if it does not join anything: everything it touches must stay connected without it
+            mine = dict(d["geoms"])
+            touch = sorted({o for L, g, n, o in cu if o != k and n == net and L in mine and g.intersects(mine[L])})
+            if len(touch) > 1:
+                same = [(L, g, o) for L, g, n, o in cu if n == net and o != k]
+                parent = {o: o for _, _, o in same}
+
+                def find(x):
+                    while parent[x] != x:
+                        parent[x] = parent[parent[x]]
+                        x = parent[x]
+                    return x
+                for i1 in range(len(same)):
+                    for i2 in range(i1 + 1, len(same)):
+                        L1, g1, o1 = same[i1]
+                        L2, g2, o2 = same[i2]
+                        if o1 != o2 and L1 == L2 and g1.intersects(g2):
+                            parent[find(o1)] = find(o2)
+                if len({find(o) for o in touch}) > 1:
+                    if "ends" in d and not d.get("trimmed"):
+                        trim_track(d, k, cu)
+                    continue
+            del alive[k]
+            DOOMED.add(k)
+            removed += 1
+            changed = True
+            break
+        if not changed:
+            break
+    log(f"dangling tracks/vias to drop: {removed}")
+
+
+def board_text(board, text, layer, x, y, size=1.0, thick=0.15, angle=0.0):
+    t = pcbnew.PCB_TEXT(board)
+    t.SetText(text)
+    t.SetLayer(layer)
+    t.SetPosition(pt(x, y))
+    t.SetTextSize(pcbnew.VECTOR2I(int(size * 1e6), int(size * 1e6)))
+    t.SetTextThickness(int(thick * 1e6))
+    t.SetTextAngleDegrees(angle)
+    if layer == pcbnew.B_SilkS:
+        t.SetMirrored(True)
+    board.Add(t)
+    return t
+
+
+def silkscreen(board):
+    """Move the controller jumper instructions clear of the nice!view pin labels; add version text."""
+    mcu = [fp for fp in board.GetFootprints() if fp.GetReference() == "MCU1"][0]
+    gi = mcu.GraphicalItems()
+    ys = {"BRIDGE 24 PIN": -1.6, "JUMPERS ON THIS FACE ONLY": -0.3, "USB / CONTROLLER FACE UP": 1.0}
+    for i in range(len(gi)):
+        t = gi[i].Cast()
+        if t.GetClass() == "PCB_TEXT":
+            for key, y in ys.items():
+                if key in t.GetText():
+                    t.SetPosition(pt(117.0, y))
+    for lay in (pcbnew.F_SilkS, pcbnew.B_SilkS):
+        board_text(board, f"corne-reversible {REVISION} {DATE}", lay, 117.0, 2.4, size=0.9)
+    # half labels on the key field edge: which half this face is the TOP of
+    board_text(board, "LEFT HALF: THIS FACE UP", pcbnew.F_SilkS, 117.0, 3.7, size=0.9)
+    board_text(board, "RIGHT HALF: THIS FACE UP", pcbnew.B_SilkS, 117.0, 3.7, size=0.9)
 
 
 if __name__ == "__main__":

@@ -69,7 +69,7 @@ class Copper:
                         if not pg.is_empty:
                             g[L] = pg
                 if g:
-                    self.items.append((g, p.GetNetname(), ("pad", fp.GetReference(), p.GetNumber(), p)))
+                    self.items.append((g, p.GetNetname(), ("pad", fp.GetReference(), p.GetNumber(), p, p.m_Uuid.AsString())))
         for t in tracks(board):
             if t.GetClass() == "PCB_VIA":
                 c = t.GetPosition()
@@ -161,7 +161,7 @@ def main():
             seen_x = x if half == "LEFT" else -x  # right half is seen from KiCad B: mirrored
             r = ys.index(y)
             pin = (LEFT_COL if seen_x < 0 else RIGHT_COL)[r]
-            k = [k for k in pad_items("MCU1") if items[k][2][3] is p][0]
+            k = [k for k in pad_items("MCU1") if items[k][2][4] == p.m_Uuid.AsString()][0]
             out.setdefault(pin, []).append(k)
         return out
 
@@ -242,7 +242,7 @@ def main():
             if p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH and p.GetDrillSizeX() > 0:
                 lx = mm(p.GetFPRelativePosition().x)
                 seen = lx if half == "LEFT" else -lx
-                k = [k for k in pad_items("DISP1") if items[k][2][3] is p][0]
+                k = [k for k in pad_items("DISP1") if items[k][2][4] == p.m_Uuid.AsString()][0]
                 dh.append((seen, k))
         dh.sort()
         for (seen, k), sig in zip(dh, NV_ORDER):

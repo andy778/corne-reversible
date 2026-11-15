@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "corne_reversible")(type "KiCad")(uri "${KIPRJMOD}/../footprints/corne_reversible.pretty")(options "")(descr "WP5 reversible footprints (source: pcb/footprints/tools/gen_footprints.py)"))
+  (lib (name "corne_kicad_local")(type "KiCad")(uri "${KIPRJMOD}/corne_kicad_local.pretty")(options "")(descr "SOD-123 diode on face A and M2 hole, from pcb/ergogen/footprints/local"))
+)
