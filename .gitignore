@@ -20,3 +20,14 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# West workspace from local ZMK builds (CI checks these out at the repo root)
+/.west/
+/zmk/
+/zephyr/
+/modules/
+/tools/
+/bootloader/
+
+# Claude Code worktrees
+.claude/

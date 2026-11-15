@@ -1,0 +1,37 @@
+# Build matrix for zmkfirmware/zmk build-user-config.yml (build_matrix_path: firmware/build.yaml).
+# Each entry produces one artifact. Tab-free YAML, 2-space indent.
+#
+# Board names use the Zephyr 4.1 board qualifier form (see
+# https://zmk.dev/blog/2025/12/09/zephyr-4-1): nice_nano//zmk is the nice!nano v2 and its clones.
+#
+# Upstream examples, kept for reference:
+#   board: [ "nice_nano//zmk" ]
+#   shield: [ "corne_left", "corne_right" ]
+
+include:
+  - board: nice_nano//zmk
+    shield: corne_left
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    artifact-name: corne_left
+
+  - board: nice_nano//zmk
+    shield: corne_right
+    artifact-name: corne_right
+
+  # Optional: settings_reset clears all bonds and settings on a controller.
+  # Flash it to any half that will not pair, then flash the normal firmware again.
+  # - board: nice_nano//zmk
+  #   shield: settings_reset
+  #   artifact-name: settings_reset
+
+  # nice!view (not fitted in v1). Add the adapter BEFORE nice_view, and set
+  # CONFIG_ZMK_DISPLAY=y in corne.conf. Adapter pinout: nice!view CS on pro_micro D1 (pin 1).
+  # - board: nice_nano//zmk
+  #   shield: corne_left nice_view_adapter nice_view
+  #   snippet: studio-rpc-usb-uart
+  #   cmake-args: -DCONFIG_ZMK_STUDIO=y
+  #   artifact-name: corne_left_nice_view
+  # - board: nice_nano//zmk
+  #   shield: corne_right nice_view_adapter nice_view
+  #   artifact-name: corne_right_nice_view
