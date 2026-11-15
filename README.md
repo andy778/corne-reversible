@@ -23,3 +23,9 @@ Status: planning. Nothing has been fabricated or tested yet.
 | `pcb/` | Ergogen config, KiCad project, fabrication outputs |
 | `firmware/` | ZMK config and keymap |
 | `case/` | Parametric case and plate sources, printable files |
+
+## Licence
+
+Hardware and software in this repository are released under the [MIT Licence](LICENSE). Copyright (c) 2026 andy778.
+
+Third-party footprints and other imported design files keep their own licences. Each one is recorded in `pcb/footprints/THIRD_PARTY.md`.

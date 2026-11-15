@@ -1,0 +1,6 @@
+{
+  // Long lines are fine in prose and tables.
+  "MD013": false,
+  // Bold lead-ins used as sub-labels in docs/plan.md are deliberate.
+  "MD036": false
+}
