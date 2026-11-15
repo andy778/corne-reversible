@@ -13,10 +13,20 @@ Checked 2026-11-15, read-only, using public pages only (no accounts, no quotes, 
 | Part | Qty per board | LCSC / MPN | Library | Stock | Price | Source | Checked |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Diode 1N4148W, SOD-123 | 21 (105 on a 5-board order) | C81598 / 1N4148W, ST(Semtech) | Basic ("SMT Basic" on the LCSC page) | 1,770,050 | $0.0117 at 50+, $0.0092 at 500+ | [LCSC C81598](https://www.lcsc.com/product-detail/C81598.html), [JLCPCB C81598](https://jlcpcb.com/partdetail/ST_Semtech-1N4148W/C81598) | 2026-11-15 (live page) |
+| Reset button TS-1187A-B-A-B, top-actuated | 1 (5 on a 5-board order) | C318884 / XKB TS-1187A-B-A-B, SMD-4P 5.1 x 5.1 x 1.5 mm | Basic (JLCPCB part page) | 544,620 | $0.0216 at 20+ | [JLCPCB C318884](https://jlcpcb.com/partdetail/C318884), [LCSC C318884](https://www.lcsc.com/product-detail/C318884.html) | 2026-11-15 (live page) |
 
 - Package confirmed as SOD-123 on both pages.
 - Because stock was not readable, the "if out of stock, list a basic alternative" step could not be triggered. No alternative was chosen. If WP7 sees zero stock at order time, search the JLCPCB basic library for "1N4148W SOD-123" and compare footprint and polarity before swapping.
 - The manufacturer string "ST (Semtech)" is odd (ST and Semtech are different companies). It is what the pages show; the datasheet should be opened by WP7 to confirm cathode marking and footprint dimensions.
+
+### Fee-free parts for JLCPCB (checked 2026-11-15)
+
+Only JLCPCB "Basic" and "Promotional Extended" parts have no feeder loading fee in Economic PCBA ([list](https://jlcpcb.com/parts/basic_parts)). Of this board's parts:
+
+- 1N4148W (C81598) and TS-1187A-B-A-B (C318884) are Basic, so both are factory-fitted.
+- MSK12C02 (C431540) and TS-1186F-B-A (C908470) are Extended; JLCPCB's parts search found no Basic slide switch.
+- S2B-PH-K-S (C173752) is through-hole, which Economic PCBA does not fit.
+- The Kailh sockets cannot be factory-fitted on a reversible board (they go on the underside of each half), and LCSC has none in stock.
 
 ## Hand-soldered per keyboard (2 halves)
 
@@ -28,8 +38,7 @@ Checked 2026-11-15, read-only, using public pages only (no accounts, no quotes, 
 | Kailh hot-swap sockets, keyboard shop (use this) | 50 per pack | splitkb KLH-SKT-MXS-050; variants MX (black, white, beige, blue, green) and Choc (black) | Orderable, quantity selector shown | EUR 7.95 per 50 incl. 21% NL VAT | [splitkb](https://splitkb.com/products/kailh-hotswap-sockets) | 2026-11-15 (live page) |
 | Power slide switch, THT candidate | 2 | ECE ESP2010 = C40646683: SPDT, through hole, right angle, 3 pin, 10 x 2.5 mm, 6.5 mm switch height; JLCPCB library: Extended | 91 | $0.73 at 1, $0.59 at 10+ | [LCSC C40646683](https://www.lcsc.com/product-detail/C40646683.html) | 2026-11-15 (live page) |
 | Slide switch MSK12C02 (SMD, right angle) | 2 | SHOU HAN MSK12C02 = C431540: SPDT, "Surface Mount, Right Angle", 8 x 2.8 mm, 1.4 mm high, 50 mA; JLCPCB library: Extended | 161,620 | $0.052 at 10+ | [C431540](https://www.lcsc.com/product-detail/C431540.html) (C2681568 and C431541 are colour variants, not re-read) | 2026-11-15 (live page) |
-| Reset button, TS-1187A-B-A-B (not right-angle) | 2 | XKB TS-1187A-B-A-B = C318884: SMD-4P, 5.1 x 5.1 x 1.5 mm, round actuator; JLCPCB library: Basic | 544,620 | $0.0216 at 20+ | [LCSC C318884](https://www.lcsc.com/product-detail/C318884.html) | 2026-11-15 (live page) |
-| Reset button, right-angle SMD (recommended) | 2 | XKB TS-1186F-B-A = C908470: SPST, "Surface Mount, Right Angle", 3.6 x 3.5 mm, 3.6 mm high; JLCPCB library: Extended | 345 | $0.19 at 5+ | [LCSC C908470](https://www.lcsc.com/product-detail/C908470.html) | 2026-11-15 (live page) |
+| Reset button, right-angle SMD (fallback only, not used) | 2 | XKB TS-1186F-B-A = C908470: SPST, "Surface Mount, Right Angle", 3.6 x 3.5 mm, 3.6 mm high; JLCPCB library: Extended | 345 | $0.19 at 5+ | [LCSC C908470](https://www.lcsc.com/product-detail/C908470.html) | 2026-11-15 (live page) |
 | JST PH 2-pin, side entry (right angle), THT | 2 | JST S2B-PH-K-S(LF)(SN) = C173752: through hole, right angle, 2.0 mm pitch; JLCPCB library: Extended | 180,780 | $0.04 at 20+ | [LCSC C173752](https://www.lcsc.com/product-detail/C173752.html) | 2026-11-15 (live page) |
 | JST PH 2-pin, vertical, THT | alt | B2B-PH-K-S(LF)(SN) = C131337. Width about 4.5 mm, mounted height about 8.0 mm (LCSC FAQ), 5.9 mm edge length | Snippet: about 26K | Snippet: $0.033 | [LCSC C131337](https://www.lcsc.com/product-detail/C131337.html) | 2026-11-15 |
 | Controller socket strips, low profile | 4 strips (2 per controller) | Mill-Max 315-43-112-41-003000 (series 315, 2.54 mm, single row; 12 positions inferred from the part-number pattern and a sibling listing) | Snippet: 4,425 at one Mouser site | Snippet: about $4.31 each | [Mouser series 315](https://www.mouser.ca/c/connectors/ic-component-sockets/?series=315). The distributor page ibselectronics returned HTTP 403 | 2026-11-15 (snippet only) |
@@ -48,7 +57,7 @@ Checked 2026-11-15, read-only, using public pages only (no accounts, no quotes, 
 - Alps SSSS811101 and PCM12SMTR (named in the task brief) were not looked up; no data here.
 - The 2.8 mm / 1.4 mm figures belong to the MSK12C02 SMD variants; the classic through-hole MSK-12C02 was not found on LCSC in these searches.
 
-**Reset button.** The plan names TS-1187A-B-A-B, but LCSC lists it as "Surface Mount, Vertical", 5.1 x 5.1 x 1.5 mm, SMD-4P, SPST. That is not a right-angle part by LCSC's own attributes. I did not open the datasheet drawing, so the actuator direction is unconfirmed. If the plan needs a true side-push button, XKB TS-1186F-B-A (C908470) is listed as right angle, 3.6 x 3.5 mm. A through-hole side-push 6 x 3.5 mm switch was not found.
+**Reset button (decided 2026-11-15).** TS-1187A-B-A-B (C318884) is top-actuated ("Surface Mount, Vertical"), not right-angle, but it is a JLCPCB Basic part, so JLCPCB fits it on face A with the diodes at no feeder fee. Left half: pressed through a hole in the tray; right half: faces up beside the controller, outside the plate. TS-1186F-B-A (C908470, right-angle, Extended) stays as a hand-soldered fallback footprint.
 
 **JST PH connector, vertical or right angle.** Recommendation (judgement, not a verified fact): use the side-entry S2B-PH-K-S (C173752). The vertical B2B body is about 8.0 mm tall, which is more than a 2.5 to 5 mm tray gives, and its cable climbs vertically into the controller. The side-entry part keeps the wire lying flat under or beside the controller. WP5 should put the 5.9 mm edge length and 4.5 mm width into the keepout, and the cable exit toward the board edge.
 
@@ -145,7 +154,7 @@ From [JLCPCB PCB assembly price details](https://jlcpcb.com/help/article/pcb-ass
 
 [Assembly capabilities](https://jlcpcb.com/capabilities/pcb-assembly-capabilities) for Economic: single-sided placement, single board 10 x 10 to 470 x 500 mm, panel up to 250 x 250 mm, board thickness 0.8 to 1.6 mm, 2 to 50 pieces, minimum component 0402, edge rails and fiducials not necessary, **V-cut not supported** (single boards or mouse-bite panels only).
 
-For this order (5 boards, 21 diodes each, 2 joints each, 210 joints): SMT about $0.34. With setup and stencil that is about **$10.05 (9.09 EUR)**, or about **$13.41 (12.13 EUR)** if the pre-reflow row also applies. Diode part cost is not included (price not readable; likely cents) and neither is shipping or any large-board or ENIG extra.
+For this order (5 boards, 21 diodes each, 2 joints each, 210 joints): SMT about $0.34. Adding the TS-1187A reset button (4 joints per board, 20 joints, Basic so no feeder fee) adds about $0.03 in joints and about $0.11 in parts. With setup and stencil that is about **$10.05 (9.09 EUR)**, or about **$13.41 (12.13 EUR)** if the pre-reflow row also applies. Diode part cost is not included (price not readable; likely cents) and neither is shipping or any large-board or ENIG extra.
 
 ### Bare 2-layer boards, 5 pieces, about 135 x 95 mm
 
@@ -194,7 +203,7 @@ Updated total for one keyboard with SuperMini controllers: unchanged at roughly 
 
 1. **Stock and price were read from the live LCSC pages on 2026-11-15** for the diode, sockets, switches, buttons and JST connector (browser, JavaScript rendered). Re-check C81598 stock and Basic status on the JLCPCB order page at order time.
 2. **No Kailh socket is available on LCSC** (C2803348, C5184526, C5156480 and C5333465 all "Not available now"). Buy sockets from a keyboard shop, for example splitkb (EUR 7.95 per 50, MX or Choc).
-3. **Plan's reset part TS-1187A-B-A-B is listed by LCSC as vertical SMD**, not right-angle. Needs the datasheet drawing, or a switch to TS-1186F-B-A (C908470) or a through-hole side-push button. Affects WP5 and WP7 footprint design.
+3. **Reset button decided:** TS-1187A-B-A-B (C318884, Basic) fitted by JLCPCB on face A. WP4 places it beside the controller, WP6 adds a press hole in the left tray.
 4. **Power switch not settled.** MSK12C02 (the plan's example) is SMD on LCSC with 8 x 2.8 x 1.4 mm body, not through-hole; the through-hole candidate ECE ESP2010 (C40646683) lacks a confirmed pin pitch and actuator direction. Alps SSSS811101 and PCM12SMTR were not checked.
 5. **Bare PCB price for 5 boards at 135 x 95 mm not obtained.** Needs a JLCPCB quote.
 6. **JLCPCB per-joint fee ambiguity:** the table lists both "pre-reflow soldering" ($0.016) and "SMT assembly" ($0.0016). Difference on this order is about $3.

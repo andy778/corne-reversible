@@ -5,7 +5,7 @@ A wireless Corne-layout split keyboard built on one reversible PCB: the same boa
 - 3x6+3 (42 keys), with a break-off outer column for 36 keys
 - Hot-swap sockets for Kailh MX or Kailh Choc on the same footprint
 - Pro Micro-footprint nRF52840 controller (nice!nano v2 or clone), ZMK firmware
-- JLCPCB fits the diodes; everything else is hand-soldered
+- JLCPCB fits the diodes and the reset button (both Basic parts); everything else is hand-soldered
 - 3D printed case and plate
 
 Status: planning. Nothing has been fabricated or tested yet.

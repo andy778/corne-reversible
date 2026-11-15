@@ -8,8 +8,8 @@ Build a 42-key Corne-layout wireless split on one reversible PCB design: order 5
 
 - **Layout:** Corne 3x6+3 at MX spacing (19.05 mm), so both MX and Choc switches fit. The outer column sits on a break-off tab for a 36-key variant.
 - **Switches:** a combined footprint that takes either a Kailh MX socket or a Kailh Choc socket per key. You choose per build, not per day. First build is MX.
-- **Assembled by JLCPCB:** the diodes only, all on one face, basic-library part.
-- **Soldered by hand:** hot-swap sockets, controller sockets, power switch, reset button, battery connector, battery. Sockets cannot be factory-fitted on a reversible board (see PCB architecture).
+- **Assembled by JLCPCB:** the diodes and the reset button, all on one face, both basic-library parts (no feeder fees).
+- **Soldered by hand:** hot-swap sockets, controller sockets, power switch, battery connector, battery. Sockets cannot be factory-fitted on a reversible board (see PCB architecture).
 - **Controller:** Pro Micro-footprint nRF52840 board (nice!nano v2 or a cheap SuperMini clone), socketed, on a solder-jumper reversible footprint.
 - **Display:** nice!view footprint reserved in v1.
 - **Firmware:** ZMK. Wiring the matrix to the same pins as the stock Corne means the existing ZMK `corne` shield works unmodified.
@@ -22,7 +22,7 @@ Five boards give two complete keyboards (for example one MX, one Choc) plus a sp
 | Criterion | Design answer | Caveat |
 | --- | --- | --- |
 | One PCB for left and right | Reversible board; every footprint works from both faces | Hot-swap sockets must be hand-soldered |
-| JLCPCB standard parts | Only SOD-123 diodes are factory-fitted, and 1N4148W (C81598) is a basic part | Power switch, reset and battery connector are hand-soldered |
+| JLCPCB standard parts | Only SOD-123 diodes and the TS-1187A reset button are factory-fitted; 1N4148W (C81598) and TS-1187A (C318884) are basic parts | Power switch and battery connector are hand-soldered |
 | Expensive parts self-mounted | Controller, sockets and battery are bought separately and fitted by hand | About 130 easy solder joints per half, plus the controller jumpers |
 | ZMK | nRF52840 controller; stock `corne` shield | None |
 | 3D printer | Printed case, plate and optional tenting feet | Choc plate needs small pockets over the diodes |
@@ -52,7 +52,7 @@ The alternative that was rejected: a single plain footprint with the controller 
 
 Include the two battery holes next to the USB end in the footprint, and confirm the pinout of the exact controller bought before sending the board to fab.
 
-**Parts that work from either face.** Use a side-actuated slide switch for power and a right-angle tactile button for reset, both at the board edge, with footprints on both faces so they can be hand-soldered on whichever face is the underside.
+**Parts that work from either face.** Use a side-actuated slide switch for power at the board edge, with footprints on both faces so it can be hand-soldered on whichever face is the underside. The reset button is a top-actuated TS-1187A fitted by JLCPCB on face A: on the left half it faces down and is pressed through a hole in the tray, on the right half it faces up and must sit outside the switch plate, next to the controller.
 
 **36-key break-off.** The outer column of each half sits on a tab with mouse-bite perforations. That column's three diodes sit on the tab, and only the one column trace crosses the break line. Firmware uses the 5-column Corne layout when the tab is removed.
 
@@ -90,6 +90,7 @@ The board itself is nearly passive: a 4x6 diode matrix, a power switch, a reset 
 | Part | Qty per board | Package | JLCPCB library |
 | --- | --- | --- | --- |
 | 1N4148W diode | 21 | SOD-123 | Basic, [C81598](https://jlcpcb.com/partdetail/ST_Semtech-1N4148W/C81598) |
+| TS-1187A-B-A-B reset button | 1 | SMD 5.1 x 5.1 mm | Basic, [C318884](https://jlcpcb.com/partdetail/C318884) |
 
 With only a basic part on the order there are no extended-part fees.
 
@@ -101,7 +102,6 @@ With only a basic part on the order there are no extended-part fees.
 | nRF52840 controller, Pro Micro footprint | 2 | See controller options |
 | Low-profile machine-pin sockets and pins | 2 sets | Keeps the controller removable and reusable |
 | Power slide switch, side-actuated | 2 | Through-hole or large-pad footprint, both faces |
-| Reset button, right-angle tactile | 2 | Through-hole or large-pad footprint, both faces |
 | Battery connector, JST PH 2-pin | 2 | Through-hole or large-pad footprint, both faces |
 | 1S LiPo battery with JST PH lead | 2 | 100 to 300 mAh, sized to fit under or beside the controller |
 | nice!view display (optional) | 2 | Header reserved in v1 |
@@ -159,7 +159,7 @@ Design one left-hand case and mirror it in the slicer for the right hand; only t
 - **Tray depth under the PCB:** at least 2.5 mm for sockets and diodes, more where the battery sits. Put the battery under the controller area or in a pocket beside it.
 - **Fasteners:** M2 screws into heat-set inserts, 5 mounting holes per half, placed so they work on both faces and with the outer column broken off.
 - **Plate:** print flat on the bed, 0.2 mm layers. MX plate 1.5 mm at the cutouts; Choc plate 1.2 to 1.3 mm with diode pockets on the underside.
-- **Edge openings:** USB-C, power switch and reset button.
+- **Edge openings:** USB-C and power switch. Reset: a press hole in the left tray under the button; on the right half the button faces up beside the controller.
 - **Variants:** 42-key and 36-key trays and plates.
 - **Material:** PETG for the tray, PLA or PETG for the plate. Print one test plate with three cutouts first to tune switch fit on the printer.
 
@@ -187,7 +187,7 @@ Seven steps, with the cheap checks placed before the PCB order because a footpri
 3. **Route in KiCad.** Matrix nets on Corne pin assignments, battery through the power switch to the controller battery pin, reset button. Run DRC against JLCPCB's 2-layer rules.
 4. **Paper and firmware check.** Print the board 1:1 and test-fit sockets, switches and the controller on both faces. Flash stock Corne ZMK to the two bare controllers and confirm they pair with each other and with the computer.
 5. **Order from JLCPCB.** 5 boards, Economic PCBA on face A. Export Gerbers, BOM and placement files with the KiCad JLCPCB fabrication plugin and check part rotation in JLCPCB's preview.
-6. **Print and assemble.** While boards ship, print the test plate, then tray and plate. On arrival: bridge the jumpers on the upward face of each half, solder sockets to the underside, fit controller sockets, power switch, reset and battery connector, connect the battery, mount in the case.
+6. **Print and assemble.** While boards ship, print the test plate, then tray and plate. On arrival: bridge the jumpers on the upward face of each half, solder sockets to the underside, fit controller sockets, power switch and battery connector, connect the battery, mount in the case.
 7. **Bring-up.** Flash left and right, test every key with a tweezers short before fitting switches, then load the keymap through ZMK Studio.
 
 Steps 1 to 4 are a few evenings; JLCPCB production and shipping to Finland typically adds two to three weeks.
@@ -207,7 +207,7 @@ Steps 1 to 4 are a few evenings; JLCPCB production and shipping to Finland typic
 - 36-key variant on the same board with break-off tabs.
 - nice!view display footprint reserved in v1.
 - Solder-jumper controller footprint.
-- Power switch, reset button and battery connector are hand-soldered; JLCPCB fits only the diodes.
+- Power switch and battery connector are hand-soldered; JLCPCB fits the diodes and the TS-1187A reset button (both Basic parts).
 
 ## Sources
 
