@@ -1,0 +1,22 @@
+#
+# Pinned to ZMK main at 4de313367288aad5aeaa1243890e40dc813f7008 (Zephyr 4.1).
+# The latest release tag, v0.3.0, still builds Zephyr 3.5 and does not know nice_nano//zmk.
+# When ZMK ships a Zephyr 4.1 release, switch both this revision and the workflow ref to it.
+#
+# This file lives in firmware/ and the repo root is the west topdir (the reusable
+# workflow runs `west init -l firmware`), so self.path is "firmware".
+manifest:
+  defaults:
+    revision: 4de313367288aad5aeaa1243890e40dc813f7008
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+    # Additional modules containing boards/shields/custom code can be listed here as well
+    # See https://docs.zephyrproject.org/latest/develop/west/manifest.html#projects
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      revision: 4de313367288aad5aeaa1243890e40dc813f7008
+      import: app/west.yml
+  self:
+    path: firmware

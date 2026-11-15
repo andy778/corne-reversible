@@ -1,0 +1,21 @@
+name: Build firmware
+
+on:
+  push:
+    paths:
+      - "firmware/**"
+      - ".github/workflows/build-firmware.yml"
+  pull_request:
+    paths:
+      - "firmware/**"
+      - ".github/workflows/build-firmware.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Pinned to the same ZMK main commit as firmware/west.yml. The v0.3 tag predates Zephyr 4.1.
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@4de313367288aad5aeaa1243890e40dc813f7008
+    with:
+      build_matrix_path: firmware/build.yaml
+      config_path: firmware
+      archive_name: corne-firmware
