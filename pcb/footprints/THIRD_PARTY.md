@@ -12,7 +12,7 @@ Commits are the HEAD of a shallow clone made on 2026-11-15.
 
 Licence notice for that material:
 
-```
+```text
 MIT License
 
 Copyright (c) 2023 Marco Massarelli
