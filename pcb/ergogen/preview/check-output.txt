@@ -1,0 +1,55 @@
+PASS  column outer: top->home dy=19.0500 mm dx=0.0000
+PASS  column outer: home->bottom dy=19.0500 mm dx=0.0000
+PASS  column pinky: top->home dy=19.0500 mm dx=0.0000
+PASS  column pinky: home->bottom dy=19.0500 mm dx=0.0000
+PASS  column ring: top->home dy=19.0500 mm dx=0.0000
+PASS  column ring: home->bottom dy=19.0500 mm dx=0.0000
+PASS  column middle: top->home dy=19.0500 mm dx=0.0000
+PASS  column middle: home->bottom dy=19.0500 mm dx=0.0000
+PASS  column index: top->home dy=19.0500 mm dx=0.0000
+PASS  column index: home->bottom dy=19.0500 mm dx=0.0000
+PASS  column inner: top->home dy=19.0500 mm dx=0.0000
+PASS  column inner: home->bottom dy=19.0500 mm dx=0.0000
+PASS  columns outer->pinky: dx=19.0500 mm
+PASS  columns pinky->ring: dx=19.0500 mm
+PASS  columns ring->middle: dx=19.0500 mm
+PASS  columns middle->index: dx=19.0500 mm
+PASS  columns index->inner: dx=19.0500 mm
+PASS  stagger outer: +0.300 u below middle, expected +0.300
+PASS  stagger pinky: +0.300 u below middle, expected +0.300
+PASS  stagger ring: +0.100 u below middle, expected +0.100
+PASS  stagger middle: +0.000 u below middle, expected +0.000
+PASS  stagger index: +0.100 u below middle, expected +0.100
+PASS  stagger inner: +0.200 u below middle, expected +0.200
+PASS  21 switches and 21 diodes (got 21, 21)
+PASS  every diode is 9.525 mm from its key with the key's rotation (21/21)
+PASS  all diodes on B.Cu (face A, left-half underside)
+PASS  diode anode on SW_* net, cathode on ROWn (21/21)
+PASS  switch pad 1 nets: ['COL_D14', 'COL_D15', 'COL_D18', 'COL_D19', 'COL_D20', 'COL_D21']
+PASS  controller D4 -> ROW0
+PASS  controller D5 -> ROW1
+PASS  controller D6 -> ROW2
+PASS  controller D7 -> ROW3
+PASS  controller D21 -> COL_D21
+PASS  controller D20 -> COL_D20
+PASS  controller D19 -> COL_D19
+PASS  controller D18 -> COL_D18
+PASS  controller D15 -> COL_D15
+PASS  controller D14 -> COL_D14
+PASS  controller D1 -> DISP_CS
+PASS  controller D2 -> DISP_MOSI
+PASS  controller D3 -> DISP_SCK
+PASS  5 mounting holes (got 5)
+PASS  all mounting holes are right of the break line by > 2 mm
+      MCU_ProMicro_nRF52840_Reversible_Jumpers         KiCad x= 115.750 y= -34.505 rot=0
+      Display_niceview_Header_Reversible_Jumpers       KiCad x= 115.750 y= -11.855 rot=0
+      SW_SPDT_MSK12C02_Reversible                      KiCad x= 131.550 y= -42.505 rot=90
+      SW_Reset_TS-1187A_FaceA                          KiCad x= 128.350 y= -33.505 rot=90
+      JST_PH_S2B-PH-K_Reversible                       KiCad x= 129.750 y= -24.505 rot=90
+      MountingHole_2.2mm_M2                            KiCad x=  28.575 y= -31.100 rot=0
+      MountingHole_2.2mm_M2                            KiCad x=  66.675 y= -34.290 rot=0
+      MountingHole_2.2mm_M2                            KiCad x=  28.575 y= -12.050 rot=0
+      MountingHole_2.2mm_M2                            KiCad x=  85.725 y=  22.645 rot=0
+      MountingHole_2.2mm_M2                            KiCad x= 115.750 y=  -3.855 rot=0
+
+RESULT: ALL PASS
