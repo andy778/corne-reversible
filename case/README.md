@@ -1,6 +1,6 @@
 # case (WP6)
 
-Parametric 3D-printed bottom tray and switch plate for one half of the reversible Corne-layout board, MX first, 42-key and 36-key variants, plus MX test plates. **Nothing here has been printed yet**; see [Unverified](#unverified).
+Parametric 3D-printed bottom tray and switch plate for one half of the reversible Corne-layout board, MX first, 42-key and 36-key variants, plus MX test plates. Only the MX tolerance test plate has been printed (14.0 mm holds firmly); see [Unverified](#unverified).
 
 **Tool: OpenSCAD 2021.01** (installed here, imports the Ergogen DXF outlines natively, headless STL export, fast: all parts render in about 15 s). CadQuery was not needed. Newer OpenSCAD versions should work too.
 
@@ -60,7 +60,7 @@ Plain mirroring in the slicer is **not** enough, because the halves differ in th
 | `switch_type` | `"mx"` | `"choc"` switches to 13.8 mm cutouts, 1.2 mm plate, 2.2 mm above PCB, diode pockets on the right half. Untested, not exported |
 | `mx_cutout`, `mx_plate_t`, `mx_above_pcb` | 14.0, 1.5, 5.0 | From the plan |
 | `choc_cutout`, `choc_plate_t`, `choc_above_pcb` | 13.8, 1.2, 2.2 | From the plan |
-| `cutout_tol` | 0.0 | Added to the cutout size. Set it from the test plate result |
+| `cutout_tol` | 0.0 | Added to the cutout size. Confirmed 2026-11-15: 14.0 mm holds an MX switch firmly on the owner's printer |
 | `pcb_t` | 1.6 | PCB thickness |
 | `wall`, `fit` | 2.0, 0.3 | Tray wall (= Ergogen `wall`); cavity is PCB plus `fit` per side, so the wall is 1.7 mm thick |
 | `floor_t`, `under_pcb` | 2.0, 3.0 | Floor and the clearance below the PCB (the plan requires at least 2.5) |
@@ -140,7 +140,7 @@ ALL CHECKS PASSED
 
 ## Unverified
 
-1. **Nothing is printed.** Fit of the MX switches (14.0 mm cutouts, `cutout_tol`), screw posts, heat-set inserts and all clearances is by calculation only. The WP6 acceptance check (test plate holds an MX switch firmly) is **not done**.
+1. **Only the tolerance test plate is printed.** WP6 acceptance check passed 2026-11-15: the owner's print of `test_plate_mx_tolerance.stl` holds an MX switch firmly at the 14.0 mm cutout, so `cutout_tol` stays 0.0. Screw posts, heat-set inserts and all other clearances are still by calculation only.
 2. **H4 mounting hole is squeezed by sockets.** H4 (85.725, -22.645) sits 2.1 mm from the corner of one socket pad and 2.4 mm from another. A 3.2 mm insert would leave a 0.1 mm wall, so H4 uses a 1.8 mm pilot hole for a self-tapping M2 screw (boss wall 0.82 mm) instead of an insert, which departs from "5 inserts". Alternatives: move H4 about 2 mm down in WP4/WP7, or set `h4_insert = true` and accept a paper-thin boss. Also the thinnest remaining boss walls around 3.2 mm inserts are 0.8 mm (left H2) and 0.6 mm (right H1 and H3): marginal for heat-set inserts. This is a layout issue to look at before the PCB order.
 3. **Socket pad keep-outs** use only the copper pads of the B-side hot-swap footprint plus 0.25 mm. The real Kailh socket bodies and solder joints may reach further; the clearance is unverified.
 4. **Insert dimensions** (M2, 3.5 mm OD, 3 to 4 mm long, 3.2 mm hole) are the common values, not a specific product. Check the datasheet of the inserts you buy and set `insert_d` / `insert_len`.
