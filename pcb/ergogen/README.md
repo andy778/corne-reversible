@@ -63,11 +63,11 @@ The 36-key plate and tray remove the outer column, its cutouts, and the tab area
 | nice!view header origin | 115.75 | 11.855 |
 | Power switch origin | 131.55 | 42.505 |
 | JST origin | 129.75 | 24.505 |
-| Mount holes H1..H5 | (28.575, 31.1), (66.675, 34.29), (28.575, 12.05), (85.725, -22.645), (115.75, 3.855) | |
+| Mount holes H1..H5 | (30.075, 31.6), (65.425, 33.79), (30.075, 12.55), (85.725, -25.645), (115.75, 3.855) | |
 
 The reset press hole in `tray_*_left` is at the reset centre. The reset button is **top actuated, 1.5 mm tall, courtyard 7.5 x 5.6 mm**, in the strip right of the controller, outside the key area. On the right half it faces up: WP6 must leave the plate open (or notch it) over that spot or the plate will press on the button. On the left half it faces down into the tray press hole.
 
-Mounting holes: M2 (2.2 mm). H1 to H4 are on key-tile corners, columns 1 to 5 and the thumb cluster; H5 is in the controller strip below the nice!view header. They are NPTH with no copper on either face, so they work on both faces. None is in the outer column or the tab, so all five survive the 36-key break.
+Mounting holes: M2 (2.2 mm). H1 to H4 sit near key-tile corners, columns 1 to 5 and the thumb cluster. WP7 moved them (for the WP6 case) from (28.575, 31.1), (66.675, 34.29), (28.575, 12.05), (85.725, -22.645) so that a 3.2 mm heat-set insert hole keeps at least 1.2 mm of plastic to every socket and diode pad plus a 0.25 mm keep-out, on both faces (centre to nearest pad edge: H1/H3 3.69 mm, H2 3.87 mm, H4 3.24 mm, H5 4.89 mm); H5 is in the controller strip below the nice!view header. They are NPTH with no copper on either face, so they work on both faces. None is in the outer column or the tab, so all five survive the 36-key break.
 
 ## Break-off tab (outer column)
 

@@ -91,13 +91,15 @@ anchors:
   display: &display
     ref: matrix_inner_top
     shift: [ctrl_x, ctrl_y - 22.65]
-  # Mounting holes (M2, 2.2 mm). H1-H4 sit on key-tile corners, all in columns 1..5 and
+  # Mounting holes (M2, 2.2 mm). H1-H4 sit near key-tile corners, all in columns 1..5 and
   # the thumb cluster, so they survive removal of the outer-column tab. H5 is below the
-  # nice!view header.
-  h1: &h1 {ref: matrix_pinky_top, shift: [0.5 kp, -7.0]}
-  h2: &h2 {ref: matrix_middle_top, shift: [0.5 kp, -0.5 kp]}
-  h3: &h3 {ref: matrix_pinky_home, shift: [0.5 kp, -7.0]}
-  h4: &h4 {ref: thumbfan_near_thumb, shift: [0.5 kp, -5.5]}
+  # nice!view header. WP7 (for WP6) moved H1-H4 off the exact tile corners so a 3.2 mm
+  # heat-set insert hole keeps >= 1.2 mm of plastic to every socket/diode pad (+0.25 mm
+  # keep-out) on both faces: centre to nearest pad edge >= 3.05 mm.
+  h1: &h1 {ref: matrix_pinky_top, shift: [0.5 kp + 1.5, -6.5]}
+  h2: &h2 {ref: matrix_middle_top, shift: [0.5 kp - 1.25, -0.5 kp - 0.5]}
+  h3: &h3 {ref: matrix_pinky_home, shift: [0.5 kp + 1.5, -6.5]}
+  h4: &h4 {ref: thumbfan_near_thumb, shift: [0.5 kp, -8.5]}
   h5: &h5 {ref: matrix_inner_top, shift: [ctrl_x, ctrl_y - 22.65 - 8]}
   # Right edge of the board is ctrl + 19. The slide switch and JST have the actuator / plug
   # towards +y in their own frame, so they are rotated 90 degrees to face the right edge.
