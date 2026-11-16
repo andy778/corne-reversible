@@ -64,10 +64,9 @@ pad_margin  = 0.25;                      // boss keeps this far from the socket 
 insert_d    = 3.2;                       // hole for an M2 insert of 3.5 mm OD (check your inserts)
 insert_len  = 4.0;                       // insert length 3 to 4 mm
 insert_deep = insert_len + 0.5;          // blind hole depth below the boss top
-// H4 (index 3) sits 2.1 mm from the corner of one socket pad and 2.4 mm from another, so a 3.2 mm insert hole
-// would leave a 0.1 mm wall. By default it gets a 1.8 mm pilot hole for a self-tapping M2 screw instead.
-// Set h4_insert = true to force an insert there anyway (thin boss, see README).
-h4_insert   = false;
+// WP7 moved H4 to 3.24 mm from the nearest socket pad, so it now takes an insert like H1-H3/H5.
+// Set h4_insert = false to fall back to a 1.8 mm pilot hole for a self-tapping M2 screw.
+h4_insert   = true;
 h4_pilot_d  = 1.8;
 hole_d      = [insert_d, insert_d, insert_d, h4_insert ? insert_d : h4_pilot_d, insert_d];
 screw_clear = 2.4;                       // M2 clearance in plate and posts

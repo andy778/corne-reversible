@@ -220,7 +220,7 @@ def main():
         render(part, out)
         rings = contours(out)
         match(discs(rings, 3.2) + discs(rings, 1.8, 0.1), mir(holes) if right else holes,
-              "%s insert/pilot holes (3.2 mm, H4 1.8 mm) vs mounting holes" % part)
+              "%s insert/pilot holes (3.2 mm, or H4 1.8 mm pilot) vs mounting holes" % part)
         bosses[part] = [Polygon(r) for r in rings]
         fl = os.path.join(tmp, part + "_floor.dxf")
         render(part + "_floor", fl)
