@@ -9,7 +9,7 @@ ZMK config for the reversible Corne. Stock `corne_left` / `corne_right` shields,
 | `build.yaml` | Build matrix: one entry per `.uf2`. Commented nice!view and settings_reset entries. |
 | `west.yml` | Pins ZMK (main, Zephyr 4.1) to a commit. |
 | `corne.keymap` | 42-key, 4-layer starter keymap. |
-| `corne.conf` | Shared Kconfig: sleep, battery, Studio locking. |
+| `corne.conf` | Shared Kconfig: sleep, battery, Studio locking; commented clock option for SuperMini clones. |
 
 The config sits directly in `firmware/`, not `firmware/config/`. The reusable workflow runs `west init -l <config_path>`, and the west topdir is the parent of that path, so a nested config breaks the build. The repo root becomes the topdir in CI.
 
@@ -32,6 +32,23 @@ Pinning: `west.yml` and the workflow `uses:` ref point to the same ZMK commit. T
 3. Left half pairs with the computer over BLE. Flash the right half too; it pairs with the left.
 
 Pairing reset: flash `settings_reset` (uncomment in `build.yaml`) to a half that will not pair, then flash the normal firmware again.
+
+## SuperMini clones
+
+The plan starts with SuperMini nRF52840 boards; they use the same `nice_nano//zmk` firmware. Some batches have a missing or faulty 32.768 kHz crystal. The symptom is a half that will not pair, or keeps dropping the link, while a nice!nano in the same socket works.
+
+1. Uncomment `CONFIG_CLOCK_CONTROL_NRF_K32SRC_RC=y` in `corne.conf`. That switches the low-frequency clock to the chip's internal RC oscillator.
+2. Rebuild and flash both halves.
+
+This doesn't always cure it, and it may cost a little sleep current and slow boot. If the half still drops, swap the board. Leave the option off on a nice!nano.
+
+## Power and battery
+
+- **Charging needs the switch on.** The power switch sits between the battery and the controller's battery pin (RAW). With the switch off, the battery is disconnected and USB does not charge it.
+- **One protected cell per half.** Use a 1S LiPo with a built-in protection circuit. The board has no fuse or reverse-polarity protection.
+- **Check polarity before plugging in.** JST PH polarity differs between sellers. Red must go to `+`.
+- **Tape the unused JST pads.** The connector footprint has a hole pair for each face, and only one is used. The other pair is still live battery copper next to the controller.
+- **Antenna end.** The controller's antenna is at the end away from USB. Keep the cell and its leads toward the USB end where the case allows, and keep metal away from that end. Range drops sharply with metal or a battery right at the antenna.
 
 ## Studio
 
@@ -90,4 +107,4 @@ west build -s zmk/app -b nice_nano//zmk -d build/left -S studio-rpc-usb-uart \
   -- -DZMK_CONFIG=$PWD/firmware -DSHIELD=corne_left -DCONFIG_ZMK_STUDIO=y
 ```
 
-`zmk/`, `zephyr/` and friends are created in the repo root. The root `.gitignore` does not cover them, so keep them out of commits.
+`zmk/`, `zephyr/` and friends are created in the repo root; the root `.gitignore` excludes them.
