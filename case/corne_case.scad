@@ -51,7 +51,13 @@ batt_w = 20;  batt_l = 30;  batt_t = 5.0;
 batt_clear  = 0.5;                       // on each side in xy
 batt_top    = 0.5;                       // between battery top and PCB underside (socket tails, trim them)
 batt_skin   = 0.8;                       // floor left under the battery pocket
-batt_cy     = ctrl_pos[1] - 2;           // pocket centre y (under the controller)
+usb_edge_y  = ctrl_pos[1] + 17;          // board top edge over the controller (Ergogen outline, = 51.505)
+batt_top_gap = 1.0;                      // pocket top edge to that board edge
+// Pocket pushed to the USB end of the controller, away from the antenna at the far end of the module.
+// With batt_l = 30 it starts at y 19.5 (antenna end of the module at about 18 to 24); a 27 mm cell
+// (batt_l = 27) starts at 22.5.
+batt_cy     = usb_edge_y - batt_top_gap - batt_l / 2 - batt_clear;
+assert(batt_cy + batt_l / 2 + batt_clear <= usb_edge_y - 0.5, "battery pocket reaches the tray wall");
 
 // PCB underside level: either the general clearance or whatever the battery needs, whichever is larger
 pcb_bottom  = max(floor_t + under_pcb, batt_skin + batt_t + batt_top);

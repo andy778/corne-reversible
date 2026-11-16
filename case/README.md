@@ -66,6 +66,7 @@ Plain mirroring in the slicer is **not** enough, because the halves differ in th
 | `floor_t`, `under_pcb` | 2.0, 3.0 | Floor and the clearance below the PCB (the plan requires at least 2.5) |
 | `batt_w`, `batt_l`, `batt_t` | 20, 30, 5.0 | Battery. `docs/bom.md` cells with a JST PH lead measure about 20 x 27-28 x 4.2-4.3 mm, so they fit; a 401230 cell (12 mm wide) would too. Set `batt_t = 4.3` to lower the whole tray by 0.7 mm |
 | `batt_clear`, `batt_top`, `batt_skin` | 0.5, 0.5, 0.8 | Pocket clearance in xy; clearance between battery top and PCB underside (trim socket tails); floor left under the pocket |
+| `batt_top_gap` | 1.0 | Pocket top edge to the board edge over the USB end of the controller (y 51.505). The pocket sits at the USB end, away from the antenna at the other end of the module: y 19.5 to 50.5 with `batt_l = 30`. With a 27 mm cell set `batt_l = 27` and it starts at 22.5, clear of most of the antenna end |
 | `pcb_bottom` | derived | `max(floor_t + under_pcb, batt_skin + batt_t + batt_top)` = 6.3 mm. So the general under-PCB clearance is 4.3 mm, not 3.0 mm, because the battery pocket sets the PCB height |
 | `boss_od`, `insert_d`, `insert_len` | 6.0, 3.2, 4.0 | Insert bosses at the 5 mounting holes. Insert hole 3.2 mm for an M2 insert of 3.5 mm OD, 3 to 4 mm long; hole is 0.5 mm deeper than the insert |
 | `h4_insert`, `h4_pilot_d` | true, 1.8 | H4 takes an insert like the others; set false for a 1.8 mm self-tapping pilot hole instead |
@@ -80,7 +81,7 @@ Plain mirroring in the slicer is **not** enough, because the halves differ in th
 
 - **Stack (left half, bottom to top):** floor 2.0, air and sockets, PCB bottom at z = 6.3, PCB 1.6, 3.5 mm gap, plate 1.5 mm. PCB top to plate top is 5.0 mm. Total height 12.9 mm including the plate (tray 11.4 mm).
 - **Plate support:** plate underside rests on the tray walls (wall top at z = 11.4) and on 5 posts (OD 4.4, 3.5 mm) that press the PCB onto the bosses around the M2 holes. The posts sit in the 5 mm webs between the switch cutouts (0.32 mm minimum gap to a cutout), checked.
-- **Tray:** floor, 2 mm walls following the Ergogen tray outline, bosses, battery pocket (21 x 31 mm, floor 0.8 mm) under the controller, reset guide tube, right-edge openings.
+- **Tray:** floor, 2 mm walls following the Ergogen tray outline, bosses, battery pocket (21 x 31 mm, floor 0.8 mm) under the controller, pushed to its USB end, reset guide tube, right-edge openings.
 - **Edge openings:** USB-C at the top edge over the controller (13 mm wide, open at the top, with a matching notch in the plate); power switch and JST openings in the right wall at the Ergogen y of each part. The JST opening runs through the floor in the wall zone, because a 6 mm housing plus the battery pocket needs more depth than the floor provides.
 - **Plate window:** one 21 mm wide opening from below the nice!view header up past the USB end of the controller; on the right half it is joined by the reset window.
 
