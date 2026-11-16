@@ -12,6 +12,7 @@ import argparse
 import json
 import math
 import os
+import re
 import shutil
 import sys
 import time
@@ -410,6 +411,7 @@ def main():
         finish(board)
         pcbnew.SaveBoard(args.out, board)
         drop_items_from_file(args.out, DOOMED)
+        bites_to_npth(args.out, os.path.dirname(args.out))
         write_project(os.path.splitext(args.out)[0] + ".kicad_pro")
         write_lib_table(os.path.dirname(args.out))
         return
@@ -425,6 +427,7 @@ def main():
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     pcbnew.SaveBoard(args.out, board)
     drop_items_from_file(args.out, DOOMED)
+    bites_to_npth(args.out, os.path.dirname(args.out))
     write_project(os.path.splitext(args.out)[0] + ".kicad_pro")
     write_lib_table(os.path.dirname(args.out))
     log("saved", args.out)
@@ -464,6 +467,7 @@ def write_project(path):
     sev = ds["rule_severities"]
     # see README "Accepted DRC findings"
     sev["hole_to_hole"] = "warning"
+    sev["npth_inside_courtyard"] = "warning"  # break-line NPTH on the key-tile boundary (WP8 S1)
     sev["lib_footprint_mismatch"] = "warning"
     sev["lib_footprint_issues"] = "warning"
     base = d["net_settings"]["classes"][0]
@@ -580,6 +584,59 @@ def finish(board):
     tb.SetCompany("andy778")
     tb.SetComment(0, "Reversible Corne half: LEFT = KiCad F up, RIGHT = KiCad B up. JLCPCB assembles B (face A).")
     remove_dangling(board)
+
+
+BITE_R = 0.3  # break-line perforation radius drawn by Ergogen as Edge.Cuts circles
+
+
+def bites_to_npth(path, libdir):
+    """Replace the Ergogen break-line circles on Edge.Cuts by 0.6 mm NPTH pads (footprint BRK1), so they
+    land in the NPTH drill file instead of the outline (WP8 S1). Runs on the saved file, after routing."""
+    txt = open(path).read()
+    pat = re.compile(r"\n\t\(gr_circle\s*\(center ([-\d.]+) ([-\d.]+)\)\s*\(end ([-\d.]+) ([-\d.]+)\)"
+                     r"(?:(?!\n\t\().)*?\(layer \"Edge\.Cuts\"\)(?:(?!\n\t\().)*?\n\t\)", re.S)
+    centres = []
+
+    def take(m):
+        cx, cy, ex, ey = map(float, m.groups())
+        if abs(math.hypot(ex - cx, ey - cy) - BITE_R) > 1e-3:
+            return m.group(0)
+        centres.append((cx, cy))
+        return ""
+    txt = pat.sub(take, txt)
+    open(path, "w").write(txt)
+    if not centres:
+        return
+    board = pcbnew.LoadBoard(path)
+    fp = pcbnew.FOOTPRINT(board)
+    fp.SetFPID(pcbnew.LIB_ID("corne_kicad_local", "BreakLine_Perforation_NPTH"))
+    fp.SetReference("BRK1")
+    fp.Reference().SetVisible(False)
+    fp.SetValue("BreakLine_Perforation_NPTH")
+    fp.Value().SetVisible(False)
+    fp.Reference().SetLayer(pcbnew.F_Fab)
+    fp.Value().SetLayer(pcbnew.F_Fab)
+    fp.SetAttributes(pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_POS_FILES | pcbnew.FP_EXCLUDE_FROM_BOM)
+    x0, y0 = centres[0]
+    fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(x0), pcbnew.FromMM(y0)))
+    board.Add(fp)
+    for n, (cx, cy) in enumerate(sorted(centres, key=lambda c: c[1]), 1):
+        pad = pcbnew.PAD(fp)
+        pad.SetAttribute(pcbnew.PAD_ATTRIB_NPTH)
+        pad.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
+        d = pcbnew.FromMM(2 * BITE_R)
+        pad.SetSize(pcbnew.VECTOR2I(d, d))
+        pad.SetDrillSize(pcbnew.VECTOR2I(d, d))
+        pad.SetLayerSet(pcbnew.PAD.UnplatedHoleMask())
+        pad.SetNumber("")
+        fp.Add(pad)
+        pad.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(cx), pcbnew.FromMM(cy)))
+    pcbnew.SaveBoard(path, board)
+    c = pcbnew.FOOTPRINT(fp)
+    c.SetPosition(pcbnew.VECTOR2I(0, 0))
+    c.SetReference("BRK**")
+    pcbnew.PCB_IO_KICAD_SEXPR().FootprintSave(os.path.join(libdir, "corne_kicad_local.pretty"), c)
+    log(f"break line: {len(centres)} Edge.Cuts circles replaced by NPTH pads")
 
 
 DOOMED = set()

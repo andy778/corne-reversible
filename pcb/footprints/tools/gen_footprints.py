@@ -620,17 +620,21 @@ def jst_fp():
     fp.pad("1", "thru_hole", "roundrect", (1, -JST_DY), (1.2, 1.75), th, drill=0.75, rratio=0.2, net=("param", "BAT_N"))
     fp.pad("2", "thru_hole", "oval", (-1, -JST_DY), (1.2, 1.75), th, drill=0.75, net=("param", "BAT_P"))
     for face, py in (("F", 0.0), ("B", -JST_DY)):
-        sx = 1 if face == "F" else -1
         fp.rect(f"{face}.Fab", (-2.95, py - 1.35), (2.95, py + 6.25), 0.1)
         fp.rect(f"{face}.CrtYd", (-3.45, py - 1.85), (3.45, py + 11.0), 0.05)   # incl. plug and lead
         fp.text(f"{face}.Fab", "plug", (0, py + 4.5), size=0.7)
-        # silk: bracket around this face's pair, polarity marks outside the pads
-        fp.line(f"{face}.SilkS", (-3.1, py - 1.2), (-3.1, py + 1.2), 0.15)
-        fp.line(f"{face}.SilkS", (3.1, py - 1.2), (3.1, py + 1.2), 0.15)
-        fp.text(f"{face}.SilkS", "-", (-2.35 * sx, py), size=0.9, th=0.15)
-        fp.text(f"{face}.SilkS", "+", (2.35 * sx, py), size=0.9, th=0.15)
+    # F silk: bracket around the F pair, polarity marks outside the pads, label on the free side
+    fp.line("F.SilkS", (-3.1, -1.2), (-3.1, 1.2), 0.15)
+    fp.line("F.SilkS", (3.1, -1.2), (3.1, 1.2), 0.15)
+    # "-" turned -90 so it reads as a minus, not a tick, at the board placement (rotation 90)
+    fp.text("F.SilkS", "-", (-2.35, 0), size=0.9, th=0.15, rot=-90)
+    fp.text("F.SilkS", "+", (2.35, 0), size=0.9, th=0.15)
     fp.text("F.SilkS", "USE THIS PAIR", (0, 2.2), size=0.6, th=0.1)
-    fp.text("B.SilkS", "USE THIS PAIR", (0, -JST_DY - 2.0), size=0.6, th=0.1)
+    # B silk (WP8 S2): the B pair sits next to the controller's pin labels, so no bracket and no text;
+    # only the polarity marks, set diagonally outward (toward the F pair) into the gaps between the
+    # labels. The F pair carries no B silk, so the marked pair is the one to use on face B.
+    fp.text("B.SilkS", "-", (2.95, -JST_DY + 0.75), size=0.9, th=0.15, rot=-90)
+    fp.text("B.SilkS", "+", (-2.6, -JST_DY + 0.75), size=0.9, th=0.15)
     return fp
 
 

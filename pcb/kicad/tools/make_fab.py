@@ -18,11 +18,11 @@ for each part a reference vector is measured on the board as seen from the top (
   diode: centre -> cathode pad (pad 1); library angle phi = 180 (EasyEDA C81598: cathode pad 1 at -x)
   TS-1187A: pad-1 pair centre -> pad-2 pair centre; phi = -90 (EasyEDA C318884: pins 1,2 at the
   top row, 3,4 at the bottom row, leads along x)
-and JLCPCB bottom rotation R = (360 - theta - phi) mod 360. This is the kicad-jlcpcb-tools rule
-R = 180 - orientation (for a KiCad footprint whose front version matches the EasyEDA footprint)
-rewritten in terms of the measured direction, so it does not depend on how the footprint was drawn.
-The Ergogen diode footprint is drawn directly on B.Cu with the cathode at -x, i.e. its front-side
-equivalent has the cathode at +x, so the plain plugin rule would be 180 degrees off for every diode.
+and JLCPCB bottom rotation R = (180 - theta - phi) mod 360: seen from the bottom the board direction
+theta becomes 180 - theta, and the library part (reference at phi) is turned by R counter-clockwise in
+that view. For a footprint whose front version matches the EasyEDA one this equals the kicad-jlcpcb-tools
+/ Fabrication Toolkit / KiBot rule R = 180 - orientation. (WP7 used 360 - theta - phi, which put every
+diode in backwards; found in the WP8 review, B1.) Confirm in JLCPCB's bottom-side placement preview.
 """
 import csv
 import glob
@@ -121,7 +121,7 @@ def bom_cpl():
         if side != "Bottom":
             raise SystemExit(f"{fp.GetReference()} is not on the bottom (face A)")
         theta, phi = ref_angle(fp)
-        rot = (360.0 - theta - phi) % 360.0
+        rot = (180.0 - theta - phi) % 360.0
         rot = round(rot, 1) % 360.0
         rows.append([fp.GetReference(), f"{mm(p.x):.4f}mm", f"{-mm(p.y):.4f}mm", side, f"{rot:.1f}"])
     with open(cpl, "w", newline="") as fh:
@@ -139,7 +139,7 @@ def polarity(b, parts, rows):
     rot = {r[0]: float(r[4]) for r in rows}
     for fp in parts:
         theta, phi = ref_angle(fp)
-        back = (360.0 - rot[fp.GetReference()] - phi) % 360.0
+        back = (180.0 - rot[fp.GetReference()] - phi) % 360.0
         d = abs((back - theta + 180) % 360 - 180)
         if fp.GetReference().startswith("D"):
             cath = [p for p in fp.Pads() if p.GetNumber() == "1"][0]

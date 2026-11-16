@@ -32,7 +32,7 @@ BOM: 2 lines.
 | 1N4148W | D1-D21 | D_SOD-123_Back | C81598 |
 | TS-1187A-B-A-B | SW22 | SW_Reset_TS-1187A_FaceA | C318884 |
 
-CPL: 22 rows, all `Bottom`. Mid X / Mid Y are the KiCad footprint origins in mm with Y negated, i.e. the Gerber coordinates. D1-D20 have rotation 0.0, D21 (under the rotated thumb key) 15.0, SW22 90.0.
+CPL: 22 rows, all `Bottom`. Mid X / Mid Y are the KiCad footprint origins in mm with Y negated, i.e. the Gerber coordinates. D1-D20 have rotation 180.0, D21 (under the rotated thumb key) 195.0, SW22 270.0.
 
 ### Rotation, and the correction applied
 
@@ -41,7 +41,9 @@ JLCPCB places from its own (EasyEDA) footprints. Read from the EasyEDA component
 - C81598: footprint `SOD-123F_L2.7-W1.6-LS3.8-RD`, pad 1 = cathode at -x, cathode bar silk on the pad 1 side, symbol pin 1 = K.
 - C318884: four pads at (+-3.0, +-1.85) mm, leads along x, pins 1 and 2 on one row, 3 and 4 on the other. Same land pattern and orientation as KiCad's `SW_Push_1P1T_XKB_TS-1187A`, whose pad 1 / pad 2 rows match the internal pairing.
 
-For bottom-side parts, the convention used by the kicad-jlcpcb-tools plugin is JLCPCB rotation = (180 - KiCad orientation) mod 360, for a KiCad footprint whose front-side form matches the EasyEDA footprint. **This board's diode footprint does not**: Ergogen draws it directly on B.Cu with the cathode at -x, so its front-side form has the cathode at +x. The plain rule would put every diode in backwards. `make_fab.py` therefore computes the rotation from the copper instead: it measures, seen from the top, the direction from the part centre to the cathode pad (diode) or from the pad-1 row to the pad-2 row (TS-1187A), and converts it with the same convention (R = 360 - measured angle - library angle). Net effect versus the plain plugin rule: **diodes +180 degrees** (0 instead of 180), TS-1187A no change in effect (90; 270 would be equivalent, its pin pairs are symmetric under 180 degrees; 0 or 180 would put the leads across the pads and is wrong).
+For bottom-side parts, kicad-jlcpcb-tools, Fabrication Toolkit and KiBot all use JLCPCB rotation = (180 - KiCad orientation) mod 360, for a KiCad footprint whose front-side form matches the EasyEDA footprint. This board's diodes are what KiCad's stock `D_SOD-123` becomes when flipped to B (orientation 0, cathode pad 1 at -x seen from the top), so the plain rule applies: 180 degrees. `make_fab.py` computes the same thing from the copper, so it does not depend on how the footprint was drawn: it measures, seen from the top, the direction from the part centre to the cathode pad (diode) or from the pad-1 row to the pad-2 row (TS-1187A), and converts it with R = 180 - measured angle - library angle. The TS-1187A comes out at 270, equivalent to 90 because its pin pairs are symmetric under 180 degrees (0 or 180 would put the leads across the pads and is wrong).
+
+**Correction (WP8 review, B1):** WP7 used R = 360 - measured angle - library angle, on the belief that the Ergogen diode was mirrored relative to the stock footprint. That gave 0 / 15 for the diodes and would have fitted all 21 backwards. Fixed in `make_fab.py`; see `docs/review-wp8.md`.
 
 `make_fab.py` also checks, for every diode, that pad 1 (cathode) is on a `ROW` net and pad 2 (anode) on the key's switch net, i.e. cathode toward the row as required by `col2row`. All 21 pass.
 

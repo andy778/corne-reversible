@@ -1,8 +1,8 @@
 ** Drc report for corne_reversible.kicad_pcb **
-** Created on 2026-11-15T19:49:14 **
+** Created on 2026-11-16T07:34:49 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 60 DRC violations **
+** Found 69 DRC violations **
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(126.3000 mm, -24.3450 mm): Footprint text of MCU1 (D14)
@@ -19,101 +19,105 @@
     Rule: board setup constraints silk; warning
     @(126.3000 mm, -31.9650 mm): Footprint text of MCU1 (D4)
     @(125.6000 mm, -32.2050 mm): Segment of SW22 on B.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(126.7500 mm, -26.8550 mm): Footprint text of BT1 (-)
-    @(126.3000 mm, -26.8850 mm): Footprint text of MCU1 (D6)
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(126.3000 mm, -21.8050 mm): Footprint text of MCU1 (D8)
-    @(126.7500 mm, -22.1550 mm): Footprint text of BT1 (+)
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(126.3000 mm, -21.8050 mm): Footprint text of MCU1 (D8)
-    @(125.5500 mm, -21.4050 mm): Segment of BT1 on B.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(126.3000 mm, -37.0450 mm): Footprint text of MCU1 (D2)
-    @(126.4750 mm, -36.5050 mm): Pad 1 [RST] of SW22 on B.Cu
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(124.7500 mm, -24.5050 mm): Footprint text of BT1 (USE THIS PAIR)
-    @(123.3700 mm, -29.4250 mm): PTH pad H17 [MCU1_H17] of MCU1
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(126.3000 mm, -24.3450 mm): Footprint text of MCU1 (D7)
-    @(126.7500 mm, -25.5050 mm): PTH pad 1 [GND] of BT1
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(126.3000 mm, -24.3450 mm): Footprint text of MCU1 (D7)
-    @(126.7500 mm, -23.5050 mm): PTH pad 2 [BAT_P] of BT1
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(124.7500 mm, -24.5050 mm): Footprint text of BT1 (USE THIS PAIR)
-    @(123.3700 mm, -26.8850 mm): PTH pad H16 [MCU1_H16] of MCU1
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(124.7500 mm, -24.5050 mm): Footprint text of BT1 (USE THIS PAIR)
-    @(123.3700 mm, -24.3450 mm): PTH pad H15 [MCU1_H15] of MCU1
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(124.7500 mm, -24.5050 mm): Footprint text of BT1 (USE THIS PAIR)
-    @(123.3700 mm, -21.8050 mm): PTH pad H14 [MCU1_H14] of MCU1
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; warning
-    @(105.2000 mm, -24.3450 mm): Footprint text of MCU1 (D14)
-    @(103.5250 mm, -24.7050 mm): Pad 1 [COL_D14] of SW17 on B.Cu
+    @(105.2000 mm, -44.6650 mm): Footprint text of MCU1 (GND)
+    @(103.5250 mm, -43.7550 mm): Pad 1 [COL_D14] of SW18 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(105.2000 mm, -42.1250 mm): Footprint text of MCU1 (RST)
     @(103.5250 mm, -43.7550 mm): Pad 1 [COL_D14] of SW18 on B.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(105.2000 mm, -44.6650 mm): Footprint text of MCU1 (GND)
-    @(103.5250 mm, -43.7550 mm): Pad 1 [COL_D14] of SW18 on B.Cu
+    @(105.2000 mm, -24.3450 mm): Footprint text of MCU1 (D14)
+    @(103.5250 mm, -24.7050 mm): Pad 1 [COL_D14] of SW17 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(126.3000 mm, -37.0450 mm): Footprint text of MCU1 (D2)
+    @(126.4750 mm, -36.5050 mm): Pad 1 [RST] of SW22 on B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(126.3000 mm, -24.3450 mm): Footprint text of MCU1 (D7)
+    @(126.7500 mm, -23.5050 mm): PTH pad 2 [BAT_P] of BT1
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(126.3000 mm, -24.3450 mm): Footprint text of MCU1 (D7)
+    @(126.7500 mm, -25.5050 mm): PTH pad 1 [GND] of BT1
 [lib_footprint_mismatch]: Footprint 'SW_Reset_TS-1187A_FaceA' does not match copy in library 'corne_reversible'
     Local override; warning
     @(128.3500 mm, -33.5050 mm): Footprint SW22
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(91.4400 mm, -37.4650 mm): NPTH pad of SW18
-    @(92.7100 mm, -34.9250 mm): NPTH pad of SW18
+    @(-2.5400 mm, -33.0200 mm): NPTH pad of SW3
+    @(-3.8100 mm, -35.5600 mm): NPTH pad of SW3
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(97.7900 mm, -34.9250 mm): NPTH pad of SW18
-    @(99.0600 mm, -37.4650 mm): NPTH pad of SW18
+    @(2.5400 mm, -33.0200 mm): NPTH pad of SW3
+    @(3.8100 mm, -35.5600 mm): NPTH pad of SW3
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(35.5600 mm, 1.2700 mm): NPTH pad of SW7
-    @(34.2900 mm, -1.2700 mm): NPTH pad of SW7
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(41.9100 mm, -1.2700 mm): NPTH pad of SW7
-    @(40.6400 mm, 1.2700 mm): NPTH pad of SW7
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(92.7100 mm, -15.8750 mm): NPTH pad of SW17
-    @(91.4400 mm, -18.4150 mm): NPTH pad of SW17
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(99.0600 mm, -18.4150 mm): NPTH pad of SW17
-    @(97.7900 mm, -15.8750 mm): NPTH pad of SW17
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(73.6600 mm, 1.2700 mm): NPTH pad of SW13
     @(72.3900 mm, -1.2700 mm): NPTH pad of SW13
+    @(73.6600 mm, 1.2700 mm): NPTH pad of SW13
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
     @(78.7400 mm, 1.2700 mm): NPTH pad of SW13
     @(80.0100 mm, -1.2700 mm): NPTH pad of SW13
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(34.2900 mm, -39.3700 mm): NPTH pad of SW9
-    @(35.5600 mm, -36.8300 mm): NPTH pad of SW9
+    @(16.5100 mm, -33.0200 mm): NPTH pad of SW6
+    @(15.2400 mm, -35.5600 mm): NPTH pad of SW6
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(41.9100 mm, -39.3700 mm): NPTH pad of SW9
-    @(40.6400 mm, -36.8300 mm): NPTH pad of SW9
+    @(22.8600 mm, -35.5600 mm): NPTH pad of SW6
+    @(21.5900 mm, -33.0200 mm): NPTH pad of SW6
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(-2.5400 mm, -13.9700 mm): NPTH pad of SW2
+    @(-3.8100 mm, -16.5100 mm): NPTH pad of SW2
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(2.5400 mm, -13.9700 mm): NPTH pad of SW2
+    @(3.8100 mm, -16.5100 mm): NPTH pad of SW2
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(53.3400 mm, -3.1750 mm): NPTH pad of SW10
+    @(54.6100 mm, -0.6350 mm): NPTH pad of SW10
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(60.9600 mm, -3.1750 mm): NPTH pad of SW10
+    @(59.6900 mm, -0.6350 mm): NPTH pad of SW10
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(15.2400 mm, -16.5100 mm): NPTH pad of SW5
+    @(16.5100 mm, -13.9700 mm): NPTH pad of SW5
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(22.8600 mm, -16.5100 mm): NPTH pad of SW5
+    @(21.5900 mm, -13.9700 mm): NPTH pad of SW5
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(112.5317 mm, 16.6320 mm): NPTH pad of SW21
+    @(111.9624 mm, 13.8499 mm): NPTH pad of SW21
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(119.3228 mm, 15.8221 mm): NPTH pad of SW21
+    @(117.4387 mm, 17.9468 mm): NPTH pad of SW21
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(54.6100 mm, -38.7350 mm): NPTH pad of SW12
+    @(53.3400 mm, -41.2750 mm): NPTH pad of SW12
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(60.9600 mm, -41.2750 mm): NPTH pad of SW12
+    @(59.6900 mm, -38.7350 mm): NPTH pad of SW12
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(92.7100 mm, -34.9250 mm): NPTH pad of SW18
+    @(91.4400 mm, -37.4650 mm): NPTH pad of SW18
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(99.0600 mm, -37.4650 mm): NPTH pad of SW18
+    @(97.7900 mm, -34.9250 mm): NPTH pad of SW18
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
     @(92.7100 mm, 22.2250 mm): NPTH pad of SW20
@@ -124,52 +128,36 @@
     @(97.7900 mm, 22.2250 mm): NPTH pad of SW20
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(15.2400 mm, -35.5600 mm): NPTH pad of SW6
-    @(16.5100 mm, -33.0200 mm): NPTH pad of SW6
+    @(-3.8100 mm, 2.5400 mm): NPTH pad of SW1
+    @(-2.5400 mm, 5.0800 mm): NPTH pad of SW1
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(22.8600 mm, -35.5600 mm): NPTH pad of SW6
-    @(21.5900 mm, -33.0200 mm): NPTH pad of SW6
+    @(3.8100 mm, 2.5400 mm): NPTH pad of SW1
+    @(2.5400 mm, 5.0800 mm): NPTH pad of SW1
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(72.3900 mm, -20.3200 mm): NPTH pad of SW14
-    @(73.6600 mm, -17.7800 mm): NPTH pad of SW14
+    @(34.2900 mm, -1.2700 mm): NPTH pad of SW7
+    @(35.5600 mm, 1.2700 mm): NPTH pad of SW7
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(78.7400 mm, -17.7800 mm): NPTH pad of SW14
-    @(80.0100 mm, -20.3200 mm): NPTH pad of SW14
+    @(40.6400 mm, 1.2700 mm): NPTH pad of SW7
+    @(41.9100 mm, -1.2700 mm): NPTH pad of SW7
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(16.5100 mm, 5.0800 mm): NPTH pad of SW4
-    @(15.2400 mm, 2.5400 mm): NPTH pad of SW4
+    @(34.2900 mm, -20.3200 mm): NPTH pad of SW8
+    @(35.5600 mm, -17.7800 mm): NPTH pad of SW8
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(21.5900 mm, 5.0800 mm): NPTH pad of SW4
-    @(22.8600 mm, 2.5400 mm): NPTH pad of SW4
+    @(40.6400 mm, -17.7800 mm): NPTH pad of SW8
+    @(41.9100 mm, -20.3200 mm): NPTH pad of SW8
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(54.6100 mm, -0.6350 mm): NPTH pad of SW10
-    @(53.3400 mm, -3.1750 mm): NPTH pad of SW10
+    @(34.2900 mm, -39.3700 mm): NPTH pad of SW9
+    @(35.5600 mm, -36.8300 mm): NPTH pad of SW9
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(60.9600 mm, -3.1750 mm): NPTH pad of SW10
-    @(59.6900 mm, -0.6350 mm): NPTH pad of SW10
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(-3.8100 mm, -35.5600 mm): NPTH pad of SW3
-    @(-2.5400 mm, -33.0200 mm): NPTH pad of SW3
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(3.8100 mm, -35.5600 mm): NPTH pad of SW3
-    @(2.5400 mm, -33.0200 mm): NPTH pad of SW3
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(73.6600 mm, -36.8300 mm): NPTH pad of SW15
-    @(72.3900 mm, -39.3700 mm): NPTH pad of SW15
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(78.7400 mm, -36.8300 mm): NPTH pad of SW15
-    @(80.0100 mm, -39.3700 mm): NPTH pad of SW15
+    @(41.9100 mm, -39.3700 mm): NPTH pad of SW9
+    @(40.6400 mm, -36.8300 mm): NPTH pad of SW9
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
     @(91.4400 mm, 0.6350 mm): NPTH pad of SW16
@@ -180,68 +168,116 @@
     @(99.0600 mm, 0.6350 mm): NPTH pad of SW16
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(15.2400 mm, -16.5100 mm): NPTH pad of SW5
-    @(16.5100 mm, -13.9700 mm): NPTH pad of SW5
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(21.5900 mm, -13.9700 mm): NPTH pad of SW5
-    @(22.8600 mm, -16.5100 mm): NPTH pad of SW5
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(35.5600 mm, -17.7800 mm): NPTH pad of SW8
-    @(34.2900 mm, -20.3200 mm): NPTH pad of SW8
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(40.6400 mm, -17.7800 mm): NPTH pad of SW8
-    @(41.9100 mm, -20.3200 mm): NPTH pad of SW8
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(-2.5400 mm, 5.0800 mm): NPTH pad of SW1
-    @(-3.8100 mm, 2.5400 mm): NPTH pad of SW1
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(3.8100 mm, 2.5400 mm): NPTH pad of SW1
-    @(2.5400 mm, 5.0800 mm): NPTH pad of SW1
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(54.6100 mm, -38.7350 mm): NPTH pad of SW12
-    @(53.3400 mm, -41.2750 mm): NPTH pad of SW12
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(59.6900 mm, -38.7350 mm): NPTH pad of SW12
-    @(60.9600 mm, -41.2750 mm): NPTH pad of SW12
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(54.6100 mm, -19.6850 mm): NPTH pad of SW11
-    @(53.3400 mm, -22.2250 mm): NPTH pad of SW11
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
-    @(60.9600 mm, -22.2250 mm): NPTH pad of SW11
-    @(59.6900 mm, -19.6850 mm): NPTH pad of SW11
-[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
-    Rule: board setup constraints; warning
     @(73.6600 mm, 22.2250 mm): NPTH pad of SW19
     @(72.3900 mm, 19.6850 mm): NPTH pad of SW19
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(78.7400 mm, 22.2250 mm): NPTH pad of SW19
     @(80.0100 mm, 19.6850 mm): NPTH pad of SW19
+    @(78.7400 mm, 22.2250 mm): NPTH pad of SW19
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(112.5317 mm, 16.6320 mm): NPTH pad of SW21
-    @(111.9624 mm, 13.8499 mm): NPTH pad of SW21
+    @(15.2400 mm, 2.5400 mm): NPTH pad of SW4
+    @(16.5100 mm, 5.0800 mm): NPTH pad of SW4
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(117.4387 mm, 17.9468 mm): NPTH pad of SW21
-    @(119.3228 mm, 15.8221 mm): NPTH pad of SW21
+    @(22.8600 mm, 2.5400 mm): NPTH pad of SW4
+    @(21.5900 mm, 5.0800 mm): NPTH pad of SW4
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(-2.5400 mm, -13.9700 mm): NPTH pad of SW2
-    @(-3.8100 mm, -16.5100 mm): NPTH pad of SW2
+    @(72.3900 mm, -39.3700 mm): NPTH pad of SW15
+    @(73.6600 mm, -36.8300 mm): NPTH pad of SW15
 [hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
     Rule: board setup constraints; warning
-    @(3.8100 mm, -16.5100 mm): NPTH pad of SW2
-    @(2.5400 mm, -13.9700 mm): NPTH pad of SW2
+    @(78.7400 mm, -36.8300 mm): NPTH pad of SW15
+    @(80.0100 mm, -39.3700 mm): NPTH pad of SW15
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(91.4400 mm, -18.4150 mm): NPTH pad of SW17
+    @(92.7100 mm, -15.8750 mm): NPTH pad of SW17
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(97.7900 mm, -15.8750 mm): NPTH pad of SW17
+    @(99.0600 mm, -18.4150 mm): NPTH pad of SW17
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(53.3400 mm, -22.2250 mm): NPTH pad of SW11
+    @(54.6100 mm, -19.6850 mm): NPTH pad of SW11
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(59.6900 mm, -19.6850 mm): NPTH pad of SW11
+    @(60.9600 mm, -22.2250 mm): NPTH pad of SW11
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(73.6600 mm, -17.7800 mm): NPTH pad of SW14
+    @(72.3900 mm, -20.3200 mm): NPTH pad of SW14
+[hole_to_hole]: Drilled hole too close to other hole (board setup constraints min 0,5000 mm; actual 0,0000 mm)
+    Rule: board setup constraints; warning
+    @(78.7400 mm, -17.7800 mm): NPTH pad of SW14
+    @(80.0100 mm, -20.3200 mm): NPTH pad of SW14
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -46.3750 mm): NPTH pad of BRK1
+    @(0.0000 mm, -38.1000 mm): Footprint SW3
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -45.1750 mm): NPTH pad of BRK1
+    @(0.0000 mm, -38.1000 mm): Footprint SW3
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -43.9750 mm): NPTH pad of BRK1
+    @(0.0000 mm, -38.1000 mm): Footprint SW3
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -39.1750 mm): NPTH pad of BRK1
+    @(0.0000 mm, -38.1000 mm): Footprint SW3
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -46.3750 mm): NPTH pad of BRK1
+    @(19.0500 mm, -38.1000 mm): Footprint SW6
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -45.1750 mm): NPTH pad of BRK1
+    @(19.0500 mm, -38.1000 mm): Footprint SW6
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -43.9750 mm): NPTH pad of BRK1
+    @(19.0500 mm, -38.1000 mm): Footprint SW6
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -39.1750 mm): NPTH pad of BRK1
+    @(19.0500 mm, -38.1000 mm): Footprint SW6
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -27.1750 mm): NPTH pad of BRK1
+    @(0.0000 mm, -19.0500 mm): Footprint SW2
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -25.9750 mm): NPTH pad of BRK1
+    @(0.0000 mm, -19.0500 mm): Footprint SW2
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -27.1750 mm): NPTH pad of BRK1
+    @(19.0500 mm, -19.0500 mm): Footprint SW5
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -25.9750 mm): NPTH pad of BRK1
+    @(19.0500 mm, -19.0500 mm): Footprint SW5
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -7.9750 mm): NPTH pad of BRK1
+    @(0.0000 mm, 0.0000 mm): Footprint SW1
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -6.7750 mm): NPTH pad of BRK1
+    @(0.0000 mm, 0.0000 mm): Footprint SW1
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -7.9750 mm): NPTH pad of BRK1
+    @(19.0500 mm, 0.0000 mm): Footprint SW4
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning
+    @(9.5250 mm, -6.7750 mm): NPTH pad of BRK1
+    @(19.0500 mm, 0.0000 mm): Footprint SW4
 
 ** Found 0 unconnected pads **
 

@@ -49,7 +49,7 @@ cd pcb/ergogen && npx -y ergogen@4.2.1 . -o output --clean --debug --svg && pyth
 | Origin | KiCad (0, 0) = centre of the outer-column bottom key; Ergogen coordinates are the same with y negated |
 | Copper | 669 track segments (3.15 m), 106 vias (0.6/0.3 mm) |
 | Mounting holes | M2, 2.2 mm NPTH, Ergogen frame: H1 (30.075, 32.65), H2 (65.675, 34.54), H3 (30.075, 13.6), H4 (85.725, -25.645), H5 (115.75, 3.855). H1-H4 moved in this WP for the case inserts (see `pcb/ergogen/README.md`) |
-| Break line | x = 9.525 (KiCad), 38 holes of 0.6 mm in Edge.Cuts |
+| Break line | x = 9.525 (KiCad), 38 NPTH holes of 0.6 mm (footprint `BRK1`, converted from Ergogen's Edge.Cuts circles by `build_board.py`, WP8 S1) |
 
 ## Design rules (JLCPCB 2-layer, from docs/bom.md)
 
@@ -87,21 +87,22 @@ Net classes: Default 0.25, Power (BAT_P, RAW) 0.5, Ground (GND) 0.4, Logic3V3 (V
 
 **Reset.** TS-1187A pin 1 (both pads) -> RST, pin 2 (both pads) -> GND.
 
-**Break-off tab.** Only COL_D21, ROW0, ROW1 and ROW2 cross x = 9.525 (checked); they cross in the three gaps of the perforation, at least 0.30 mm from every bite hole (DRC copper-to-edge). No other copper is in the tab. With the tab removed the remaining 18 keys and everything else stay connected (checked).
+**Break-off tab.** Only COL_D21, ROW0, ROW1 and ROW2 cross x = 9.525 (checked); they cross in the three gaps of the perforation, at least 0.30 mm from every bite hole. No other copper is in the tab. With the tab removed the remaining 18 keys and everything else stay connected (checked).
 
 **No ground pour.** GND only has to connect the JST, the reset button, three controller via-pads and the display, all within 30 mm of each other on the right of the controller; tracks do that. A pour on both faces would sit against the hand-bridged jumper pads (a solder blob could reach it), wick heat from the socket pads, need a keep-out along the break line, and put copper under the controller module's antenna end. So none.
 
-**Silkscreen.** From WP5: `LEFT HALF: BRIDGE 24 PIN / JUMPERS ON THIS FACE ONLY / USB / CONTROLLER FACE UP` on F and the `RIGHT HALF` version on B (moved below the nice!view header so it no longer overlaps the display pin labels), pin names at every controller hole and nice!view hole on both faces, `LEFT: bridge 4` / `RIGHT: bridge 4` at the display, B+/B- marked. Added: `corne-reversible v1.0 2026-11-15` on both faces and `LEFT HALF: THIS FACE UP` (F) / `RIGHT HALF: THIS FACE UP` (B). Polarity: every diode has a cathode bar on B silk at the cathode pad; the JST has `+`/`-` and `USE THIS PAIR` on each face.
+**Silkscreen.** From WP5: `LEFT HALF: BRIDGE 24 PIN / JUMPERS ON THIS FACE ONLY / USB / CONTROLLER FACE UP` on F and the `RIGHT HALF` version on B (moved below the nice!view header so it no longer overlaps the display pin labels), pin names at every controller hole and nice!view hole on both faces, `LEFT: bridge 4` / `RIGHT: bridge 4` at the display, B+/B- marked. Added: `corne-reversible v1.0 2026-11-15` on both faces and `LEFT HALF: THIS FACE UP` (F) / `RIGHT HALF: THIS FACE UP` (B). Polarity: every diode has a cathode bar on B silk at the cathode pad; the JST has `+`/`-` and `USE THIS PAIR` on F; on B (next to the controller pin labels) only `+`/`-`, set beside the B pair in the gaps between the labels; the F pair has no B silk, so the marked pair is the one to use (WP8 S2).
 
 ## DRC result
 
-`drc-report.txt`, KiCad 10.0.6, all severities: **0 errors, 0 unconnected items, 60 warnings**, none excluded. Accepted warnings:
+`drc-report.txt`, KiCad 10.0.6, all severities: **0 errors, 0 unconnected items, 69 warnings**, none excluded. Accepted warnings:
 
 | Count | Type | Why accepted |
 | --- | --- | --- |
 | 42 | `hole_to_hole` | The two overlapping 3.0 mm MX socket holes per key (2 per key), inherent to the reversible MX footprint (WP5). The fab drills a figure-8; JLCPCB's DFM may ask, answer "intended". Left as warnings rather than DRC exclusions so they stay visible on every run |
-| 12 | `silk_over_copper` | Controller pin labels next to the JST/reset pads and the `USE THIS PAIR` text over controller hole pads; JLCPCB clips silk on pads. Legibility of a few right-half pin labels (B face, D2-D8) is reduced; the pin map is printed on the F face and in the WP5 README |
-| 5 | `silk_overlap` | The same labels touching the reset and JST outlines |
+| 16 | `npth_inside_courtyard` | The break-line NPTH holes (`BRK1`) sit on the key-tile boundary, inside the socket courtyards; copper is at least 0.30 mm away. The same holes were outline circles before WP8 S1 and drew no finding then |
+| 8 | `silk_over_copper` | Controller pin labels next to the JST/reset pads; JLCPCB clips silk on pads. Legibility of a few right-half pin labels (B face, D2-D8) is reduced; the pin map is printed on the F face and in the WP5 README |
+| 2 | `silk_overlap` | The same labels touching the reset and JST outlines |
 | 1 | `lib_footprint_mismatch` | `SW22` (TS-1187A): value and the `LCSC` field were set on the board copy |
 
 All other footprints match their library copies, which also confirms that the Ergogen modules and the WP5 `.kicad_mod` files are the same footprints.
