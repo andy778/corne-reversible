@@ -22,3 +22,20 @@ Each package lands as its own branch and pull request. The model column is the c
 - **WP6:** a three-cutout test plate holds an MX switch firmly.
 - **WP7:** KiCad DRC is clean against JLCPCB 2-layer rules.
 - **WP8:** written sign-off before any money is spent.
+
+## Status
+
+Updated 2026-11-16. All eight packages are merged to `main`.
+
+| ID | Pull request | Acceptance check | Status |
+| --- | --- | --- | --- |
+| WP1 | #1 | No check defined | Merged 2026-11-15 |
+| WP2 | #2 | Left and right `.uf2` built in GitHub Actions | Passed. CI builds `corne_left.uf2` and `corne_right.uf2` (ZMK pinned to main at 4de3133 for `nice_nano//zmk`) |
+| WP3 | #3, #5 | Every part has a source link and a check date | Passed. Every part in `docs/bom.md` has a link and was checked on 2026-11-15. #5 added the TS-1187A reset button to the JLCPCB-assembled parts |
+| WP4 | #6 | Ergogen runs cleanly at 19.05 mm spacing | Passed. Ergogen 4.2.1 runs without errors, and `pcb/ergogen/check.py` confirms the 19.05 mm pitch. WP7 later moved mounting holes H1 to H4 |
+| WP5 | #4 | 1:1 paper test-fit on both faces | Passed. The owner's paper test passed on 2026-11-15 |
+| WP6 | #7 | Three-cutout test plate holds an MX switch | Passed. Holds firmly at a 14.0 mm cutout (`cutout_tol = 0`). The case was regenerated in #8 for the moved holes |
+| WP7 | #8 | DRC clean against JLCPCB 2-layer rules | Passed. 0 errors, 0 unconnected, 69 reviewed warnings (see `pcb/kicad/README.md`). The netlist check passes |
+| WP8 | #9 | Written sign-off before any money is spent | Review written (`docs/review-wp8.md`) with the verdict "do not order" over one blocker. That blocker (diode placement rotation) and two of the three should-fix items are fixed in #8. Sign-off is conditional on one more check: the JLCPCB bottom-side placement preview must show every diode's cathode band at its silk bar |
+
+Open after WP8: the battery plug overhangs the board edge (WP8 S3; solder the lead directly for v1). Also not yet verified: the SuperMini clone pinout and the MSK12C02 pin numbering.
